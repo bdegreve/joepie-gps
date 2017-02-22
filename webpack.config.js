@@ -1,7 +1,6 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const OfflinePlugin = require('offline-plugin')
 
 const DEBUG = process.env.NODE_ENV !== 'production'
 const HASH = !DEBUG ? '-[hash]' : ''
@@ -33,11 +32,6 @@ if (!DEBUG) {
     })
   )
 }
-plugins.push(
-  new OfflinePlugin({
-    version: '[hash]'
-  })
-)
 
 module.exports = {
   context: __dirname,
