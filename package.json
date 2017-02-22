@@ -1,18 +1,17 @@
 {
-  "name": "joepie-gps",
+  "name": "joepie",
   "version": "0.0.0",
-  "description": "Joepie 27 Reverse Geocache",
+  "description": "joepie test",
   "main": "webpack.config.js",
+  "engines" : {
+    "node" : ">=6.9"
+  },
   "scripts": {
     "start": "npm run dev",
     "test": "standard",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --colors",
     "dev": "webpack-dev-server",
     "clean": "rimraf dist/*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://git.chateau.bramz.net/Bramz/joepie-gps.git"
   },
   "author": "Bram de Greve <bram.degreve@bramz.net>",
   "license": "UNLICENSED",
@@ -34,7 +33,7 @@
     "offline-plugin": "4.6.1",
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "standard": "8.6.0",
+    "standard": "^8.6.0",
     "standard-loader": "5.0.0",
     "style-loader": "0.13.1",
     "styled-components": "1.4.3",
