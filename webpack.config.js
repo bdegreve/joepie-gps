@@ -34,7 +34,11 @@ if (!DEBUG) {
 }
 plugins.push(
   new OfflinePlugin({
-    externals: ['/']
+    version: '[hash]',
+    externals: ['/home'],
+    ServiceWorker: {
+      scope: '/'
+    }
   })
 )
 
@@ -51,8 +55,8 @@ module.exports = {
     ]
   },
   output: {
-    path: resolve(__dirname, 'dist'),
-    publicPath: '/',
+    path: resolve(__dirname, 'dist/assets'),
+    publicPath: '/assets/',
     filename: `[name]${HASH}.js`,
     chunkFilename: `[name]${CHUNKHASH}-chunk.js`,
     libraryTarget: 'umd',
