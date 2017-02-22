@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import offline from 'offline-plugin/runtime'
 
 import App from './app'
 
-// offline.install()
+import './main.css'
 
 ReactDOM.render(<App />, document.getElementById('root'))
