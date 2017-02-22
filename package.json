@@ -4,7 +4,6 @@
   "description": "joepie test",
   "main": "webpack.config.js",
   "scripts": {
-    "install": "npm run build",
     "start": "npm run dev",
     "test": "standard",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --colors",
