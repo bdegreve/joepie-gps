@@ -1,7 +1,7 @@
 {
-  "name": "joepie",
+  "name": "joepie-gps",
   "version": "0.0.0",
-  "description": "joepie test",
+  "description": "Joepie 27 Reverse Geocache",
   "main": "webpack.config.js",
   "scripts": {
     "start": "npm run dev",
@@ -9,6 +9,10 @@
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --colors",
     "dev": "webpack-dev-server",
     "clean": "rimraf dist/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.chateau.bramz.net/Bramz/joepie-gps.git"
   },
   "author": "Bram de Greve <bram.degreve@bramz.net>",
   "license": "UNLICENSED",
@@ -18,6 +22,7 @@
   },
   "dependencies": {
     "babel-cli": "6.23.0",
+    "babel-core": "6.23.1",
     "babel-eslint": "7.1.1",
     "babel-loader": "6.3.2",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
@@ -29,6 +34,7 @@
     "offline-plugin": "4.6.1",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "standard": "8.6.0",
     "standard-loader": "5.0.0",
     "style-loader": "0.13.1",
     "styled-components": "1.4.3",
