@@ -6,6 +6,7 @@ const OfflinePlugin = require('offline-plugin')
 const DEBUG = process.env.NODE_ENV !== 'production'
 const HASH = !DEBUG ? '-[hash]' : ''
 const CHUNKHASH = !DEBUG ? '-[chunkhash]' : ''
+const PUBLICPATH = process.env.PUBLICPATH || '/'
 
 const plugins = [
   new webpack.LoaderOptionsPlugin({
@@ -34,11 +35,7 @@ if (!DEBUG) {
 }
 plugins.push(
   new OfflinePlugin({
-    version: '[hash]',
-    externals: ['/home'],
-    ServiceWorker: {
-      scope: '/'
-    }
+    version: '[hash]'
   })
 )
 
@@ -55,8 +52,8 @@ module.exports = {
     ]
   },
   output: {
-    path: resolve(__dirname, 'dist/assets'),
-    publicPath: '/assets/',
+    path: resolve(__dirname, 'dist'),
+    publicPath: PUBLICPATH,
     filename: `[name]${HASH}.js`,
     chunkFilename: `[name]${CHUNKHASH}-chunk.js`,
     libraryTarget: 'umd',
