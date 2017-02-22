@@ -48,7 +48,7 @@ module.exports = {
   output: {
     path: resolve(__dirname, 'dist'),
     publicPath: PUBLICPATH,
-    filename: `[name]${HASH}.js`,
+    filename: `[name]${CHUNKHASH}.js`,
     chunkFilename: `[name]${CHUNKHASH}-chunk.js`,
     libraryTarget: 'umd',
     pathinfo: !!DEBUG
@@ -75,6 +75,17 @@ module.exports = {
           },
           {
             loader: 'css-loader'
+          }
+        ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: `[name]${HASH}.[ext]`
+            }
           }
         ]
       }

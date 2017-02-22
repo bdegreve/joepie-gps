@@ -1,6 +1,8 @@
 import React from 'react'
 
+import Div from 'components/stretch-div'
+
 export default () =>
-  <div>
-    Loading ...
-  </div>
+  <Div>
+    <img src={require('img/gps.svg')} />
+  </Div>
