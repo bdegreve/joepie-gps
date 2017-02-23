@@ -15,9 +15,6 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor', 'manifest']
-  }),
   new HtmlWebpackPlugin({
     template: resolve(__dirname, 'app/index.html')
   })
@@ -37,12 +34,8 @@ module.exports = {
   context: __dirname,
   entry: {
     main: [
-      './app/main.js' // must be last for static-site-generator-webpack-plugin
-    ],
-    vendor: [
       'babel-polyfill',
-      'react',
-      'react-dom'
+      './app/main.js' // must be last for static-site-generator-webpack-plugin
     ]
   },
   output: {
