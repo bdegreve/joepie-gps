@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Gps from 'components/gps'
+import Geocache from 'components/geocache'
 
 export default () =>
   <main>
@@ -8,4 +9,5 @@ export default () =>
       <h1>Hello World!</h1>
     </header>
     <Gps />
+    <Geocache />
   </main>
