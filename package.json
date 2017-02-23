@@ -1,7 +1,7 @@
 {
-  "name": "joepie",
+  "name": "joepie-gps",
   "version": "0.0.0",
-  "description": "joepie test",
+  "description": "Joepie Reverse Geocache App",
   "main": "webpack.config.js",
   "engines": {
     "node": ">=6.9"
@@ -34,6 +34,8 @@
     "normalize.css": "5.0.0",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-redux": "5.0.3",
+    "redux": "3.6.0",
     "standard": "^8.6.0",
     "standard-loader": "5.0.0",
     "style-loader": "0.13.1",
