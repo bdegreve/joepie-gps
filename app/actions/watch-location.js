@@ -12,11 +12,12 @@ export default (dispatch) => {
 
   return navigator.geolocation.watchPosition(
     pos => {
-      const { latitude, longitude } = pos.coords
+      const { latitude, longitude, accuracy } = pos.coords
       dispatch({
         type: UPDATE_LOCATION,
         latitude,
-        longitude
+        longitude,
+        accuracy
       })
     },
     err => {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Error from 'components/error'
 import Loading from 'components/loading'
 
-const Gps = ({latitude, longitude, error}) => {
+const Gps = ({latitude, longitude, accuracy, error}) => {
   if (error) {
     return <Error error={error} />
   }
@@ -15,6 +15,7 @@ const Gps = ({latitude, longitude, error}) => {
     <div>
       <p>Latitude: {latitude}</p>
       <p>Longitude: {longitude}</p>
+      <p>Accuracy: {accuracy}</p>
     </div>
   )
 }
