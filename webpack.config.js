@@ -1,6 +1,8 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 
 const DEBUG = process.env.NODE_ENV !== 'production'
 const HASH = !DEBUG ? '-[hash]' : ''
@@ -15,6 +17,7 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
+  new ExtractTextPlugin(`[name]${CHUNKHASH}.css`),
   new HtmlWebpackPlugin({
     template: resolve(__dirname, 'app/index.html')
   })
@@ -29,6 +32,34 @@ if (!DEBUG) {
     })
   )
 }
+
+const cssLoaders = [
+  {
+    loader: 'css-loader',
+    options: {
+      // don't localize names by default, otherwise bootstrap get
+      // localized too. Instead explicitly :local(...) what needs to be.
+      // ?importLoaders=1 seems not required for now.
+      // https://css-tricks.com/css-modules-part-3-react/
+      // https://github.com/css-modules/css-modules
+      modules: false,
+      localIdentName: '[local]_[hash:base64:5]'
+    }
+  },
+  {
+    loader: 'postcss-loader',
+    options: {
+      plugins: () => [
+        autoprefixer({
+          browsers: [
+            'last 3 versions',
+            '> 1%'
+          ]
+        })
+      ]
+    }
+  }
+]
 
 module.exports = {
   context: __dirname,
@@ -62,14 +93,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: cssLoaders
+        })
       },
       {
         test: /\.svg$/,
