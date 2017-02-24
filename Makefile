@@ -26,7 +26,7 @@ check: node_modules
 
 clean:
 	npm prune
-	${RMRF} $(OBJDIR)
+	${RMRF} dist
 
 distclean: clean
 	${RMRF} node_modules
