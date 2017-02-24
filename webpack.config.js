@@ -7,7 +7,7 @@ const autoprefixer = require('autoprefixer')
 const DEBUG = process.env.NODE_ENV !== 'production'
 const HASH = !DEBUG ? '-[hash]' : ''
 const CHUNKHASH = !DEBUG ? '-[chunkhash]' : ''
-const PUBLICPATH = process.env.PUBLICPATH || '/'
+const PUBLICPATH = addSlash(process.env.PUBLICPATH)
 
 const plugins = [
   new webpack.LoaderOptionsPlugin({
@@ -127,4 +127,14 @@ module.exports = {
       'web_modules' // because https://github.com/webpack/webpack-dev-server/issues/60
     ]
   }
+}
+
+function addSlash (s) {
+  if (!s || !s.length) {
+    return '/'
+  }
+  if (s[s.length - 1] === '/') {
+    return s
+  }
+  return `${s}/`
 }
