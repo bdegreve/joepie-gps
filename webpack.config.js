@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 
 const DEBUG = process.env.NODE_ENV !== 'production'
@@ -18,8 +18,16 @@ const plugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
   new ExtractTextPlugin(`[name]${CHUNKHASH}.css`),
-  new HtmlWebpackPlugin({
-    template: resolve(__dirname, 'app/index.html')
+  new StaticSiteGeneratorPlugin({
+    entry: 'main',
+    paths: ['/'],
+    globals: {
+      // shimming 'window' as self, to make webpack-dev-server/client happy.
+      self: {
+        location: {},
+        postMessage: () => {}
+      }
+    }
   })
 ]
 if (!DEBUG) {
@@ -77,7 +85,7 @@ module.exports = {
     libraryTarget: 'umd',
     pathinfo: !!DEBUG
   },
-  devtool: DEBUG ? 'cheap-eval-source-map' : 'source-map',
+  devtool: DEBUG ? 'cheap-module-eval-source-map' : 'source-map',
   module: {
     rules: [
       {

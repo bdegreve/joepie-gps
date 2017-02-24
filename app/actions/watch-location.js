@@ -1,6 +1,11 @@
 export const UPDATE_LOCATION = 'UPDATE_LOCATION'
 
 export default (dispatch) => {
+  if (typeof document === 'undefined') {
+    // server side rendering, don't do anything ...
+    return
+  }
+
   if (!navigator.geolocation) {
     console.warn('Geolocation is not supported by this browser')
     dispatch({

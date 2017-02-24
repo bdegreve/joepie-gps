@@ -6,13 +6,20 @@ import watchLocation from 'actions/watch-location'
 
 import App from './app'
 import store from './store'
+import isomorphic from './isomorphic'
 import './main.css'
 
 watchLocation(action => store.dispatch(action))
 
-ReactDOM.render(
+const Root = () =>
   <Provider store={store}>
     <App />
-  </Provider>,
-  document.getElementById('root')
-)
+  </Provider>
+
+if (typeof document !== 'undefined') {
+  ReactDOM.render(<Root />, document.getElementById('root'))
+}
+
+export default isomorphic(Root, {
+  title: 'Joepie Challenge'
+})
