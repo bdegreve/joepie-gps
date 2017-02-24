@@ -10,12 +10,22 @@ export default (dispatch) => {
     return
   }
 
-  return navigator.geolocation.watchPosition(pos => {
-    const { latitude, longitude } = pos.coords
-    dispatch({
-      type: UPDATE_LOCATION,
-      latitude,
-      longitude
-    })
-  })
+  return navigator.geolocation.watchPosition(
+    pos => {
+      const { latitude, longitude } = pos.coords
+      dispatch({
+        type: UPDATE_LOCATION,
+        latitude,
+        longitude
+      })
+    },
+    err => {
+      dispatch({
+        type: UPDATE_LOCATION,
+        error: `${err.message} (error ${err.code})`
+      })
+    }, {
+      enableHighAccuracy: true
+    }
+  )
 }
