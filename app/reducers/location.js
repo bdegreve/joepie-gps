@@ -1,8 +1,8 @@
 import { UPDATE_LOCATION } from 'actions/watch-location'
 
 const initialState = {
-  longitude: null,
   latitude: null,
+  longitude: null,
   accuracy: null,
   error: null
 }
@@ -10,11 +10,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_LOCATION:
-      const { longitude, latitude, accuracy, error } = action
+      const { latitude, longitude, accuracy, error } = action
       return {
         ...state,
-        longitude,
         latitude,
+        longitude,
         accuracy,
         error
       }
