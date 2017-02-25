@@ -1,6 +1,7 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
-import reducers from './reducers'
+import rootReducer from './reducers'
 
 function getInitialState () {
   if (typeof document === 'undefined') {
@@ -13,7 +14,10 @@ function getInitialState () {
   return JSON.parse(initialState.innerHTML)
 }
 
-const rootReducer = combineReducers(reducers)
 const initialState = getInitialState()
 
-export default createStore(rootReducer, initialState)
+export default createStore(
+  rootReducer,
+  initialState,
+  applyMiddleware(thunkMiddleware)
+)

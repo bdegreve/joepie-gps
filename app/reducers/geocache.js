@@ -1,19 +1,47 @@
-import { UPDATE_LOCATION } from 'actions/watch-location'
-import { waypoints } from 'waypoints'
+import { LOCATION_UPDATE } from 'actions/location'
+import { WAYPOINTS_FETCHED } from 'actions/waypoints'
+
+const REQUIRED_ACCURACY = 20
+const TOLERANCE = 10
 
 const initialState = {
   waypoint: 0,
   distance: null
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action, globalState) => {
   switch (action.type) {
-    case UPDATE_LOCATION:
-      const { waypoint } = state
-      return {
-        ...state,
-        distance: distance(action, waypoints[waypoint])
+    case LOCATION_UPDATE:
+    case WAYPOINTS_FETCHED:
+      const { location, waypoints } = globalState
+      if (location.error || waypoints.error) {
+        return state
       }
+      if (location.isFetching || waypoints.isFetching) {
+        return state
+      }
+      const _waypoints = waypoints.waypoints
+
+      let { waypoint } = state
+      let distance = geoDistance(location, _waypoints[waypoint])
+
+      if (location.accuracy > REQUIRED_ACCURACY) {
+        return {
+          ...state,
+          distance
+        }
+      }
+
+      while (distance < TOLERANCE && waypoint < (_waypoints.length - 1)) {
+        ++waypoint
+        distance = geoDistance(location, _waypoints[waypoint])
+      }
+
+      return {
+        waypoint,
+        distance
+      }
+
     default:
       return state
   }
@@ -21,7 +49,7 @@ export default (state = initialState, action) => {
 
 // returns the great-circle distance between two points (degrees) on a sphere
 // https://en.wikipedia.org/wiki/Great-circle_distance#Computational_formulas
-function distance (a, b) {
+function geoDistance (a, b) {
   const lat1 = DEG2RAD * a.latitude
   const lon1 = DEG2RAD * a.longitude
   const lat2 = DEG2RAD * b.latitude

@@ -1,5 +1,6 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
 const autoprefixer = require('autoprefixer')
@@ -17,6 +18,9 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
+  new CopyWebpackPlugin([
+    { from: resolve(__dirname, 'app/waypoints.json') }
+  ]),
   new ExtractTextPlugin(`[name]${CHUNKHASH}.css`),
   new StaticSiteGeneratorPlugin({
     entry: 'main',

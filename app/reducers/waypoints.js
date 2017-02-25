@@ -1,31 +1,28 @@
-import { LOCATION_UPDATE, LOCATION_ERROR } from 'actions/location'
+import { WAYPOINTS_FETCHED, WAYPOINTS_ERROR } from 'actions/waypoints'
 
 const initialState = {
-  latitude: null,
-  longitude: null,
-  accuracy: null,
+  waypoints: null,
   isFetching: true,
   error: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOCATION_UPDATE:
-      const { latitude, longitude, accuracy } = action
+    case WAYPOINTS_FETCHED: {
       return {
         ...state,
-        latitude,
-        longitude,
-        accuracy,
+        waypoints: action.waypoints,
         isFetching: false,
         error: null
       }
+    }
 
-    case LOCATION_ERROR:
+    case WAYPOINTS_ERROR: {
       return {
         ...state,
         error: action.error
       }
+    }
 
     default:
       return state

@@ -1,6 +1,7 @@
-export const UPDATE_LOCATION = 'UPDATE_LOCATION'
+export const LOCATION_UPDATE = 'LOCATION_UPDATE'
+export const LOCATION_ERROR = 'LOCATION_ERROR'
 
-export default (dispatch) => {
+export default dispatch => {
   if (typeof document === 'undefined') {
     // server side rendering, don't do anything ...
     return
@@ -9,7 +10,7 @@ export default (dispatch) => {
   if (!navigator.geolocation) {
     console.warn('Geolocation is not supported by this browser')
     dispatch({
-      type: UPDATE_LOCATION,
+      type: LOCATION_ERROR,
       error: 'Geolocation is not supported by this browser.'
     })
     return
@@ -19,7 +20,7 @@ export default (dispatch) => {
     pos => {
       const { latitude, longitude, accuracy } = pos.coords
       dispatch({
-        type: UPDATE_LOCATION,
+        type: LOCATION_UPDATE,
         latitude,
         longitude,
         accuracy
@@ -27,7 +28,7 @@ export default (dispatch) => {
     },
     err => {
       dispatch({
-        type: UPDATE_LOCATION,
+        type: LOCATION_ERROR,
         error: `${err.message} (error ${err.code})`
       })
     }, {
