@@ -8,7 +8,7 @@ import style from './app.css'
 
 export default () =>
   <div className={style.container}>
-    <main className={style.main}>
+    <main className={style.grow}>
       <div className={style.child}>
         <Geocache />
       </div>

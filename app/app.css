@@ -7,11 +7,7 @@
   overflow: hidden;
 }
 
-:local .header {
-  text-align: center
-}
-
-:local .main {
+:local .grow {
   flex-grow: 1;
   position: relative;
 }
