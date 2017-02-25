@@ -5,6 +5,7 @@ import location from './location'
 import waypoints from './waypoints'
 
 const rootReducer = combineReducers({
+  geocache,
   location,
   waypoints
 })

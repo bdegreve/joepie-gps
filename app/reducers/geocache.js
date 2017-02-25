@@ -10,11 +10,15 @@ const initialState = {
   isFetching: true
 }
 
-export default (state = initialState, action, globalState) => {
+export default (state = initialState, action, intermediate) => {
+  if (!intermediate) {
+    return state
+  }
+
   switch (action.type) {
     case LOCATION_UPDATE:
     case WAYPOINTS_FETCHED:
-      const { location, waypoints } = globalState
+      const { location, waypoints } = intermediate
 
       const isFetching = location.isFetching || waypoints.isFetching
       if (isFetching) {
