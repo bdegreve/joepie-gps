@@ -10,15 +10,14 @@ import store from './store'
 import isomorphic from './isomorphic'
 import './main.css'
 
-watchLocation(action => store.dispatch(action))
-store.dispatch(fetchWaypoints('waypoints.json'))
-
 const Root = () =>
   <Provider store={store}>
     <App />
   </Provider>
 
 if (typeof document !== 'undefined') {
+  watchLocation(action => store.dispatch(action))
+  store.dispatch(fetchWaypoints('waypoints.json'))
   ReactDOM.render(<Root />, document.getElementById('root'))
 }
 
