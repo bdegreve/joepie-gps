@@ -1,8 +1,6 @@
 import React from 'react'
 
-import Div from 'components/stretch-div'
+import style from './loading.css'
 
 export default () =>
-  <Div>
-    <img src={require('img/gps.svg')} />
-  </Div>
+  <img className={style.loading} src={require('img/gps.svg')} />
