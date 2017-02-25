@@ -8,9 +8,6 @@ import style from './app.css'
 
 export default () =>
   <div className={style.container}>
-    <header className={style.header}>
-      <h1>Joepie Challenge</h1>
-    </header>
     <main className={style.main}>
       <div className={style.child}>
         <Geocache />
