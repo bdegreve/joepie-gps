@@ -5,8 +5,8 @@ import style from './gps.css'
 
 const View = ({latitude, longitude, accuracy}) =>
   <div className={style.view}>
-    Latitude: {latitude}<br />
-    Longitude: {longitude}<br />
+    Latitude: {latitude},
+    Longitude: {longitude},
     Accuracy: {accuracy}
   </div>
 
