@@ -1,7 +1,9 @@
 import React from 'react'
 
+import styles from './ripple.css'
+
 export default ({stroke = '#5cffd6', dur = 2}) =>
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid' className={styles.container}>
     <rect x='0' y='0' width='100' height='100' fill='none' />
     <g>
       <animate attributeName='opacity' dur={dur} repeatCount='indefinite' begin='0s' keyTimes='0;0.33;1' values='1;1;0' />

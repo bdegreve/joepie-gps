@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import Loading from 'components/loading'
 import Ripple from 'components/ripple'
-import Squared from 'components/squared'
 
 import styles from './geocache.css'
 
@@ -18,9 +17,7 @@ const View = ({waypoint, distance, accuracy, isFetching}) => {
       </div>
       <div className={styles.grow}>
         <div className={styles.child}>
-          <Squared>
-            <Ripple dur={duration(distance)} />
-          </Squared>
+          <Ripple dur={duration(distance)} />
         </div>
       </div>
       <div className={styles.distance}>
