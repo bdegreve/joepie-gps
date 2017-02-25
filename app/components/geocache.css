@@ -10,12 +10,14 @@
   font-size: 10rem;
   font-size: 25vh;
   text-align: center;
+  padding: 0 0.5em;
 }
 
 :local .distance {
   font-size: 5rem;
   font-size: 10vh;
   text-align: center;
+  padding: 0.2em 0.8em;
 }
 
 :local .grow {
@@ -28,4 +30,13 @@
   height: 100%;
   margin: auto;
   position: absolute !important;
+}
+
+@media (orientation: landscape) {
+  :local .container {
+    flex-direction: row;
+  }
+  :local .waypoint, :local .distance {
+    line-height: 100vh;
+  }
 }
