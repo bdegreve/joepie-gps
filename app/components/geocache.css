@@ -1,17 +1,24 @@
 :local .container {
   display: flex;
   flex-direction: column;
-
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-:local .header {
-  text-align: center
+:local .waypoint {
+  font-size: 10rem;
+  font-size: 25vh;
+  text-align: center;
 }
 
-:local .main {
+:local .distance {
+  font-size: 5rem;
+  font-size: 10vh;
+  text-align: center;
+}
+
+:local .grow {
   flex-grow: 1;
   position: relative;
 }
@@ -19,5 +26,6 @@
 :local .child {
   width: 100%;
   height: 100%;
+  margin: auto;
   position: absolute !important;
 }

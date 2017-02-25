@@ -12,7 +12,9 @@ export default () =>
       <h1>Joepie Challenge</h1>
     </header>
     <main className={style.main}>
-      <Geocache />
+      <div className={style.child}>
+        <Geocache />
+      </div>
     </main>
     <footer>
       <Gps />
