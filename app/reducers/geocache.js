@@ -1,7 +1,6 @@
 import { LOCATION_UPDATE } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
 
-const REQUIRED_ACCURACY = 20
 const TOLERANCE = 10
 
 const initialState = {
@@ -31,14 +30,6 @@ export default (state = initialState, action, intermediate) => {
       const _waypoints = waypoints.waypoints
       let { waypoint } = state
       let distance = geoDistance(location, _waypoints[waypoint])
-
-      if (location.accuracy > REQUIRED_ACCURACY) {
-        return {
-          ...state,
-          distance,
-          isFetching
-        }
-      }
 
       while (distance < TOLERANCE && waypoint < (_waypoints.length - 1)) {
         ++waypoint

@@ -1,5 +1,7 @@
 import { LOCATION_UPDATE, LOCATION_ERROR } from 'actions/location'
 
+const REQUIRED_ACCURACY = process.env.NODE_ENV === 'production' ? 20 : 200
+
 const initialState = {
   latitude: null,
   longitude: null,
@@ -17,7 +19,7 @@ export default (state = initialState, action) => {
         latitude,
         longitude,
         accuracy,
-        isFetching: false,
+        isFetching: accuracy > REQUIRED_ACCURACY,
         error: null
       }
 
