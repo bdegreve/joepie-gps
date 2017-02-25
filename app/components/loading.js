@@ -1,8 +1,6 @@
 import React from 'react'
 
-import Squared from 'components/squared'
+import styles from './loading.css'
 
 export default () =>
-  <Squared>
-    <img src={require('img/gps.svg')} />
-  </Squared>
+  <img src={require('img/gps.svg')} className={styles.loading} />
