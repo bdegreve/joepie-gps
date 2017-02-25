@@ -1,0 +1,19 @@
+:local .container {
+  background-color: lightblue;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+:local .header {
+  text-align: center
+}
+
+:local .main {
+  background-color: lightcoral;
+  flex-grow: 1;
+}
