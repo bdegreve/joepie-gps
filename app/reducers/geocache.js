@@ -6,7 +6,9 @@ const TOLERANCE = 10
 
 const initialState = {
   waypoint: 0,
-  distance: null
+  distance: null,
+  isFetching: true,
+  error: null
 }
 
 export default (state = initialState, action, globalState) => {
@@ -14,21 +16,27 @@ export default (state = initialState, action, globalState) => {
     case LOCATION_UPDATE:
     case WAYPOINTS_FETCHED:
       const { location, waypoints } = globalState
-      if (location.error || waypoints.error) {
-        return state
-      }
-      if (location.isFetching || waypoints.isFetching) {
-        return state
-      }
-      const _waypoints = waypoints.waypoints
 
+      const isFetching = location.isFetching || waypoints.isFetching
+      const error = location.error || waypoints.error
+      if (isFetching || error) {
+        return {
+          ...state,
+          isFetching,
+          error
+        }
+      }
+
+      const _waypoints = waypoints.waypoints
       let { waypoint } = state
       let distance = geoDistance(location, _waypoints[waypoint])
 
       if (location.accuracy > REQUIRED_ACCURACY) {
         return {
           ...state,
-          distance
+          distance,
+          isFetching,
+          error
         }
       }
 
@@ -39,7 +47,9 @@ export default (state = initialState, action, globalState) => {
 
       return {
         waypoint,
-        distance
+        distance,
+        isFetching,
+        error
       }
 
     default:

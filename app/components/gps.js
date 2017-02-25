@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import Error from 'components/error'
 import Loading from 'components/loading'
 
-const Gps = ({latitude, longitude, accuracy, error}) => {
+const Gps = ({latitude, longitude, accuracy, isFetching, error}) => {
   if (error) {
     return <Error error={error} />
   }
-  if (latitude === null || latitude === undefined) {
+  if (isFetching) {
     return <Loading />
   }
   return (
