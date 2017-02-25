@@ -17,6 +17,9 @@ export default url =>
     .then(res => res.json())
     .then(({waypoints}) => {
       if (!waypoints) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('No waypoints in data.')
+        }
         throw new Error('No waypoints in data.')
       }
       return dispatch(waypointsFetched(waypoints))

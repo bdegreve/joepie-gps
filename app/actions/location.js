@@ -8,7 +8,9 @@ export default dispatch => {
   }
 
   if (!navigator.geolocation) {
-    console.warn('Geolocation is not supported by this browser')
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Geolocation is not supported by this browser')
+    }
     dispatch({
       type: LOCATION_ERROR,
       error: 'Geolocation is not supported by this browser.'
