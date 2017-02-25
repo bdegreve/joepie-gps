@@ -1,13 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Error from 'components/error'
 import Loading from 'components/loading'
 
-const Gps = ({waypoint, distance, isFetching, error}) => {
-  if (error) {
-    return <Error error={error} />
-  }
+const View = ({waypoint, distance, isFetching}) => {
   if (isFetching) {
     return <Loading />
   }
@@ -19,4 +15,4 @@ const Gps = ({waypoint, distance, isFetching, error}) => {
   )
 }
 
-export default connect(state => state.geocache)(Gps)
+export default connect(state => state.geocache)(View)

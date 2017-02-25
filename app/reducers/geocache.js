@@ -7,8 +7,7 @@ const TOLERANCE = 10
 const initialState = {
   waypoint: 0,
   distance: null,
-  isFetching: true,
-  error: null
+  isFetching: true
 }
 
 export default (state = initialState, action, globalState) => {
@@ -18,12 +17,10 @@ export default (state = initialState, action, globalState) => {
       const { location, waypoints } = globalState
 
       const isFetching = location.isFetching || waypoints.isFetching
-      const error = location.error || waypoints.error
-      if (isFetching || error) {
+      if (isFetching) {
         return {
           ...state,
-          isFetching,
-          error
+          isFetching
         }
       }
 
@@ -35,8 +32,7 @@ export default (state = initialState, action, globalState) => {
         return {
           ...state,
           distance,
-          isFetching,
-          error
+          isFetching
         }
       }
 
@@ -48,8 +44,7 @@ export default (state = initialState, action, globalState) => {
       return {
         waypoint,
         distance,
-        isFetching,
-        error
+        isFetching
       }
 
     default:
