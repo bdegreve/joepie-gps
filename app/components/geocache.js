@@ -7,7 +7,10 @@ import Ripple from 'components/ripple'
 
 import styles from './geocache.css'
 
-const View = ({waypoint, distance, accuracy, isFetching, isFurther}) => {
+const View = ({waypoint, distance, accuracy, isFetching, isFinished, isFurther}) => {
+  if (isFinished) {
+    return <img src={require('img/finish.svg')} className={styles.finished} />
+  }
   if (isFetching) {
     return <Loading />
   }

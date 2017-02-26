@@ -31,6 +31,13 @@
   position: absolute !important;
 }
 
+:local .finished {
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+}
+
 @media (orientation: landscape) {
   :local .container {
     flex-direction: row;
