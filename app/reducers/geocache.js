@@ -8,7 +8,8 @@ const initialState = {
   distance: null,
   isFetching: true,
   isFinished: false,
-  isFurther: false
+  isFurther: false,
+  threshold: null
 }
 
 export default (state = initialState, action, intermediate) => {
@@ -41,7 +42,9 @@ export default (state = initialState, action, intermediate) => {
       }
 
       const isFinished = waypoint === (n - 1) && distance < TOLERANCE
-      const isFurther = state.distance && distance > state.distance
+
+      const isFurther = state.threshold && distance > state.threshold
+      const threshold = distance + (isFurther ? -1 : +1) * location.accuracy
 
       return {
         ...state,
@@ -49,7 +52,8 @@ export default (state = initialState, action, intermediate) => {
         distance,
         isFetching,
         isFinished,
-        isFurther
+        isFurther,
+        threshold
       }
 
     default:

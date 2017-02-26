@@ -20,7 +20,9 @@ export default (state = initialState, action) => {
         longitude,
         accuracy,
         isFetching: accuracy > REQUIRED_ACCURACY,
-        error: null
+        error: accuracy > REQUIRED_ACCURACY
+          ? `Accuracy not good enough (yet): ${accuracy} > ${REQUIRED_ACCURACY}`
+          : null
       }
 
     case LOCATION_ERROR:
