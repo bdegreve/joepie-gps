@@ -7,7 +7,7 @@ import Ripple from 'components/ripple'
 
 import styles from './geocache.css'
 
-const View = ({waypoint, distance, accuracy, isFetching}) => {
+const View = ({waypoint, distance, accuracy, isFetching, isFurther}) => {
   if (isFetching) {
     return <Loading />
   }
@@ -18,7 +18,10 @@ const View = ({waypoint, distance, accuracy, isFetching}) => {
       </div>
       <div className={styles.grow}>
         <div className={styles.child}>
-          <Ripple dur={duration(distance)} />
+          <Ripple
+            dur={duration(distance)}
+            stroke={isFurther ? '#ff5c5c' : '#5cffd6'}
+          />
         </div>
       </div>
       <div className={styles.distance}>

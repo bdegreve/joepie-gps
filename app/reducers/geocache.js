@@ -6,7 +6,8 @@ const TOLERANCE = 10
 const initialState = {
   waypoint: 0,
   distance: null,
-  isFetching: true
+  isFetching: true,
+  isFurther: false
 }
 
 export default (state = initialState, action, intermediate) => {
@@ -36,10 +37,13 @@ export default (state = initialState, action, intermediate) => {
         distance = geoDistance(location, _waypoints[waypoint])
       }
 
+      const isFurther = state.distance && distance > state.distance
+
       return {
         waypoint,
         distance,
-        isFetching
+        isFetching,
+        isFurther
       }
 
     default:
