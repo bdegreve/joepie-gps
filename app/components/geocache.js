@@ -14,6 +14,9 @@ const View = ({waypoint, distance, accuracy, isFetching, isFinished, isFurther})
   if (isFetching) {
     return <Loading />
   }
+  const {dist, unit} = distance > 2000
+    ? {dist: distance / 1000, unit: 'km'}
+    : {dist: distance, unit: 'm'}
   return (
     <div className={styles.container}>
       <div className={styles.waypoint}>
@@ -28,7 +31,7 @@ const View = ({waypoint, distance, accuracy, isFetching, isFinished, isFurther})
         </div>
       </div>
       <div className={styles.distance}>
-        <Number value={distance} fixed />m
+        <Number value={dist} fixed />{unit}
       </div>
     </div>
   )
