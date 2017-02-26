@@ -14,7 +14,7 @@ const View = ({waypoint, distance, accuracy, isFetching}) => {
   return (
     <div className={styles.container}>
       <div className={styles.waypoint}>
-        {waypoint}
+        {waypoint + 1}
       </div>
       <div className={styles.grow}>
         <div className={styles.child}>
