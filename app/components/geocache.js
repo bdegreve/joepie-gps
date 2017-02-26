@@ -26,7 +26,7 @@ const View = ({waypoint, distance, accuracy, isFetching, isFinished, isFurther})
         <div className={styles.child}>
           <Ripple
             dur={duration(distance)}
-            stroke={isFurther ? '#ff5c5c' : '#5cffd6'}
+            stroke={isFurther ? '#fa5252' : '#51cf66'}
           />
         </div>
       </div>
