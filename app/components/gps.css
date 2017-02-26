@@ -1,3 +1,7 @@
 :local .view {
   padding: 0.5rem;
 }
+
+:local .restart {
+  float: right
+}

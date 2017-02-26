@@ -1,3 +1,4 @@
+import { GEOCACHE_RESTART } from 'actions/geocache'
 import { LOCATION_UPDATE } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
 import { REHYDRATE } from 'redux-persist/constants'
@@ -16,6 +17,13 @@ const initialState = {
 export default (state = initialState, action, intermediate) => {
   if (!intermediate) {
     switch (action.type) {
+      case GEOCACHE_RESTART:
+        return {
+          ...state,
+          waypoint: 0,
+          isFinished: false
+        }
+
       case REHYDRATE:
         if (!action.payload.geocache) {
           return state
@@ -26,6 +34,7 @@ export default (state = initialState, action, intermediate) => {
           waypoint,
           isFinished
         }
+
       default:
         return state
     }
