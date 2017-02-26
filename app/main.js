@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { persistStore } from 'redux-persist'
 
 import watchLocation from 'actions/location'
 import fetchWaypoints from 'actions/waypoints'
@@ -18,6 +19,9 @@ const Root = () =>
 if (typeof document !== 'undefined') {
   watchLocation(action => store.dispatch(action))
   store.dispatch(fetchWaypoints('waypoints.json'))
+  persistStore(store, {
+    whitelist: ['geocache']
+  })
   ReactDOM.render(<Root />, document.getElementById('root'))
 }
 

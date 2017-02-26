@@ -27,9 +27,11 @@ const plugins = [
     paths: ['/'],
     globals: {
       // shimming 'window' as self, to make webpack-dev-server/client happy.
+      // also add setImmediate to keep setImmediate.js at bay ...
       self: {
         location: {},
-        postMessage: () => {}
+        postMessage: () => {},
+        setImmediate: global.setImmediate,
       }
     }
   })

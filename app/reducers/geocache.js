@@ -1,5 +1,6 @@
 import { LOCATION_UPDATE } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
+import { REHYDRATE } from 'redux-persist/constants'
 
 const TOLERANCE = 10
 
@@ -14,7 +15,20 @@ const initialState = {
 
 export default (state = initialState, action, intermediate) => {
   if (!intermediate) {
-    return state
+    switch (action.type) {
+      case REHYDRATE:
+        if (!action.payload.geocache) {
+          return state
+        }
+        const {waypoint, isFinished} = action.payload.geocache
+        return {
+          ...state,
+          waypoint,
+          isFinished
+        }
+      default:
+        return state
+    }
   }
 
   switch (action.type) {

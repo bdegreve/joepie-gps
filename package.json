@@ -42,6 +42,7 @@
     "react-dom": "15.4.2",
     "react-redux": "5.0.3",
     "redux": "3.6.0",
+    "redux-persist": "4.4.2",
     "redux-thunk": "2.2.0",
     "standard": "^8.6.0",
     "standard-loader": "5.0.0",
