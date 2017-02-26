@@ -8,7 +8,7 @@ const autoprefixer = require('autoprefixer')
 const DEBUG = process.env.NODE_ENV !== 'production'
 const HASH = !DEBUG ? '-[hash]' : ''
 const CHUNKHASH = !DEBUG ? '-[chunkhash]' : ''
-const PUBLICPATH = addSlash(process.env.PUBLICPATH)
+const PUBLICPATH = addSlash(process.env.PUBLICPATH || (DEBUG ? '/' : '/geo'))
 
 const plugins = [
   new webpack.LoaderOptionsPlugin({
@@ -31,7 +31,7 @@ const plugins = [
       self: {
         location: {},
         postMessage: () => {},
-        setImmediate: global.setImmediate,
+        setImmediate: global.setImmediate
       }
     }
   })
