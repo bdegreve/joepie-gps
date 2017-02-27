@@ -11,7 +11,7 @@ const initialState = {
   isFetching: true,
   isFinished: false,
   isFurther: false,
-  threshold: null
+  threshold: Infinity
 }
 
 export default (state = initialState, action, intermediate) => {
@@ -21,7 +21,9 @@ export default (state = initialState, action, intermediate) => {
         return {
           ...state,
           waypoint: 0,
-          isFinished: false
+          isFinished: false,
+          isFurther: false,
+          treshold: Infinity
         }
 
       case REHYDRATE:
@@ -32,7 +34,9 @@ export default (state = initialState, action, intermediate) => {
         return {
           ...state,
           waypoint,
-          isFinished
+          isFinished,
+          isFurther: false,
+          treshold: Infinity
         }
 
       default:
@@ -53,28 +57,41 @@ export default (state = initialState, action, intermediate) => {
         }
       }
 
+      let { waypoint, isFurther, threshold } = state
+
+      if (isFurther) {
+        if (distance < threshold) {
+          isFurther = false
+          threshold = distance + location.accuracy
+        } else {
+          threshold = Math.max(threshold, distance - location.accuracy)
+        }
+      } else {
+        if (distance > threshold) {
+          isFurther = true
+          threshold = distance - location.accuracy
+        } else {
+          threshold = Math.min(threshold, distance + location.accuracy)
+        }
+      }
+
       const _waypoints = waypoints.waypoints
       const n = _waypoints.length
 
-      let { waypoint } = state
       let distance = geoDistance(location, _waypoints[waypoint])
-
       while (distance < TOLERANCE && waypoint < (n - 1)) {
         ++waypoint
         distance = geoDistance(location, _waypoints[waypoint])
+        isFurther = false
+        threshold = Infinity
       }
-
-      const isFinished = waypoint === (n - 1) && distance < TOLERANCE
-
-      const isFurther = state.threshold && distance > state.threshold
-      const threshold = distance + (isFurther ? -1 : +1) * location.accuracy
 
       return {
         ...state,
         waypoint,
         distance,
         isFetching,
-        isFinished,
+        isFinished: waypoint === (n - 1) && distance < TOLERANCE,
         isFurther,
         threshold
       }
