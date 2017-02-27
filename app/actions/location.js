@@ -20,12 +20,12 @@ export default dispatch => {
 
   return navigator.geolocation.watchPosition(
     pos => {
-      const { latitude, longitude, accuracy } = pos.coords
+      const { coords, timestamp } = pos
       dispatch({
         type: LOCATION_UPDATE,
-        latitude,
-        longitude,
-        accuracy
+        coords,
+        timestamp,
+        age: Date.now() - timestamp
       })
     },
     err => {
@@ -34,7 +34,8 @@ export default dispatch => {
         error: `${err.message} (error ${err.code})`
       })
     }, {
-      enableHighAccuracy: true
+      enableHighAccuracy: true,
+      maximumAge: 1000
     }
   )
 }
