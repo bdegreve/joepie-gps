@@ -57,7 +57,17 @@ export default (state = initialState, action, intermediate) => {
         }
       }
 
+      const _waypoints = waypoints.waypoints
+      const n = _waypoints.length
+
       let { waypoint, isFurther, threshold } = state
+      let distance = geoDistance(location, _waypoints[waypoint])
+      while (distance < TOLERANCE && waypoint < (n - 1)) {
+        ++waypoint
+        distance = geoDistance(location, _waypoints[waypoint])
+        isFurther = false
+        threshold = Infinity
+      }
 
       if (isFurther) {
         if (distance < threshold) {
@@ -73,17 +83,6 @@ export default (state = initialState, action, intermediate) => {
         } else {
           threshold = Math.min(threshold, distance + location.accuracy)
         }
-      }
-
-      const _waypoints = waypoints.waypoints
-      const n = _waypoints.length
-
-      let distance = geoDistance(location, _waypoints[waypoint])
-      while (distance < TOLERANCE && waypoint < (n - 1)) {
-        ++waypoint
-        distance = geoDistance(location, _waypoints[waypoint])
-        isFurther = false
-        threshold = Infinity
       }
 
       return {
