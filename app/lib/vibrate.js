@@ -7,7 +7,7 @@ export default (pattern) => {
     return false
   }
   try {
-    return _vibrate(pattern)
+    return _vibrate.call(navigator, pattern)
   } catch (err) {
     return false
   }
