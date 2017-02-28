@@ -30,13 +30,13 @@ export default (state = initialState, action, intermediate) => {
         if (!action.payload.geocache) {
           return state
         }
-        const {waypoint, isFinished} = action.payload.geocache
+        const {waypoint, isFinished, isFurther, treshold} = action.payload.geocache
         return {
           ...state,
           waypoint,
           isFinished,
-          isFurther: false,
-          treshold: Infinity
+          isFurther,
+          treshold
         }
 
       default:
