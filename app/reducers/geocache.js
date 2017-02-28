@@ -49,6 +49,10 @@ export default (state = initialState, action, intermediate) => {
     case WAYPOINTS_FETCHED:
       const { location, waypoints } = intermediate
 
+      if (state.isFinished) {
+        return state // we're done!
+      }
+
       const isFetching = location.isFetching || waypoints.isFetching
       if (isFetching) {
         return {
