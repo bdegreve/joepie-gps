@@ -9,8 +9,8 @@ import style from './gps.css'
 
 const View = ({latitude, longitude, accuracy, timestamp}) =>
   <div className={style.view}>
-    lat <Number value={latitude} fixed={5} />,
-    lon <Number value={longitude} fixed={5} />,
+    lat <Number value={latitude} fixed={4} />,
+    lon <Number value={longitude} fixed={4} />,
     err <Number value={accuracy} fixed={1} />m,
     age <Age timestamp={timestamp} />
     <span className={style.restart}>
