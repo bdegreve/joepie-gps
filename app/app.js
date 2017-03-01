@@ -8,16 +8,15 @@ import WakeLock from 'components/wakelock'
 import style from './app.css'
 
 export default () =>
-  <WakeLock>
-    <div className={style.container}>
-      <main className={style.grow}>
-        <div className={style.child}>
-          <Geocache />
-        </div>
-      </main>
-      <footer>
-        <Gps />
-        <Errors />
-      </footer>
-    </div>
-  </WakeLock>
+  <div className={style.container}>
+    <main className={style.grow}>
+      <div className={style.child}>
+        <Geocache />
+      </div>
+    </main>
+    <footer>
+      <WakeLock />
+      <Gps />
+      <Errors />
+    </footer>
+  </div>
