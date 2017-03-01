@@ -21,11 +21,11 @@ class View extends React.Component {
       return
     }
     if (isFurther && !prevProps.isFurther) {
-      vibrate([300, 200, 300])
+      vibrate([300])
       return
     }
     if (waypoint !== prevProps.waypoint) {
-      vibrate(300)
+      vibrate([300, 200, 300])
     }
   }
 
