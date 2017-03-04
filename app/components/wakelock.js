@@ -8,30 +8,37 @@ import NoSleep from 'nosleep'
 //
 // let's try a few other things too ...
 
+const NAVIGATOR_GET_WAKE_LOCK = 'navigator.getWakeLock'
+const NAVIGATOR_REQUEST_WAKE_LOCK = 'navigator.requestWakeLock'
+const NAVIGATOR_WAKE_LOCK = 'navigator.wakeLock'
+const SCREEN_KEEP_AWAKE = 'screen.keepAwake'
+const NO_SLEEP_JS = 'NoSleep.js'
+
 export default class extends React.Component {
   constructor () {
     super()
     this.state = {
-      method: ''
+      method: '',
+      enabled: false
     }
-
     this.onClick = this.onClick.bind(this)
   }
+
   componentDidMount () {
     // "official" way: https://w3c.github.io/wake-lock/
     if (typeof navigator !== 'undefined' && navigator.getWakeLock !== undefined) {
       navigator.getWakeLock('system').then(wakeLock => {
         this._request = wakeLock.createRequest()
-        this.setState({method: 'navigator.getWakeLock ok'})
+        this.setState({enabled: true})
       })
-      this.setState({method: 'navigator.getWakeLock'})
+      this.setState({method: NAVIGATOR_GET_WAKE_LOCK})
       return
     }
 
     // firefox OS thing: https://developer.mozilla.org/en-US/docs/Mozilla/B2G_OS/API/Wake_Lock_API
     if (typeof navigator !== 'undefined' && navigator.requestWakeLock !== undefined) {
       this._lock = navigator.requestWakeLock('gps')
-      this.setState({method: 'navigator.requestWakeLock'})
+      this.setState({method: NAVIGATOR_REQUEST_WAKE_LOCK, enabled: true})
       return
     }
 
@@ -39,70 +46,76 @@ export default class extends React.Component {
     if (typeof navigator !== 'undefined' && navigator.wakeLock !== undefined) {
       navigator.wakeLock.request('screen')
         .then(() => {
-          this.setState({method: 'navigator.wakeLock ok'})
-          this._hasWakeLock = true
+          this.setState({enabled: true})
         })
-      this.setState({method: 'navigator.wakeLock'})
+      this.setState({method: NAVIGATOR_WAKE_LOCK})
       return
     }
 
     // https://whatwebcando.today/wake-lock.html
     if (typeof screen !== 'undefined' && screen.keepAwake !== undefined) {
       screen.keepAwake = true
-      this.setState({method: 'screen.keepAwake'})
+      this.setState({method: SCREEN_KEEP_AWAKE, enabled: true})
       return
     }
 
     // oh shit, nothing works, let's do this other thing then ...
     if (typeof document !== 'undefined') {
       this._noSleep = new NoSleep()
-      this.setState({method: 'NoSleep.js'})
+      this.setState({method: NO_SLEEP_JS})
+      document.addEventListener('click', this.onClick, false)
       return
     }
   }
 
   componentWillUnmount () {
-    if (this._request) {
-      this._request.cancel()
-    }
+    switch (this.state.method) {
+      case NAVIGATOR_GET_WAKE_LOCK:
+        if (this._request) {
+          this._request.cancel()
+        }
+        return
 
-    if (this._lock) {
-      this._lock.unlock()
-    }
+      case NAVIGATOR_REQUEST_WAKE_LOCK:
+        this._lock.unlock()
+        return
 
-    if (this._hasWakeLock) {
-      navigator.wakeLock.release('screen')
-    }
+      case NAVIGATOR_WAKE_LOCK:
+        navigator.wakeLock.release('screen')
+        return
 
-    if (typeof screen !== 'undefined' && screen.keepAwake !== undefined) {
-      screen.keepAwake = false
-    }
+      case SCREEN_KEEP_AWAKE:
+        screen.keepAwake = false
+        return
 
-    if (this._noSleep) {
-      this._noSleep.disable()
+      case NO_SLEEP_JS:
+        document.removeEventListener('click', this.onClick, false)
+        this._noSleep.disable()
+        return
     }
   }
 
   onClick () {
-    const { method } = this.state
-    switch (method) {
-      case 'NoSleep.js':
-        this._noSleep.enable()
-        this.setState({method: 'NoSleep.js enabled'})
-        return
-      case 'NoSleep.js enabled':
-        this._noSleep.disable()
-        this.setState({method: 'NoSleep.js'})
-        return
-    }
+    this.setState(({method, enabled}) => {
+      switch (method) {
+        case NO_SLEEP_JS:
+          if (!enabled) {
+            this._noSleep.enable()
+          } else {
+            this._noSleep.disable()
+          }
+          return {
+            enabled: !enabled
+          }
+      }
+    })
   }
 
   render () {
+    const { method, enabled } = this.state
     return (
       <div>
-        <button onClick={this.onClick}>
-          {this.state.method}
-        </button>
+        {method} {enabled ? 'enabled' : 'disabled'}
       </div>
     )
   }
