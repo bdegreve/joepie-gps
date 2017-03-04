@@ -79,6 +79,7 @@ module.exports = {
   context: __dirname,
   entry: {
     main: [
+      'core-js/modules/es6.promise',
       './app/main.js' // must be last for static-site-generator-webpack-plugin
     ]
   },
