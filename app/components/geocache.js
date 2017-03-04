@@ -76,6 +76,6 @@ const mapStateToProps = ({geocache, location}) => ({
   accuracy: location.accuracy
 })
 
-const duration = distance => -4 * Math.expm1(-distance / 100)
+const duration = distance => Math.max(1, -4000 * Math.expm1(-distance / 100))
 
 export default connect(mapStateToProps)(View)
