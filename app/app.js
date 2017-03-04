@@ -14,7 +14,7 @@ export default () =>
         <Geocache />
       </div>
     </main>
-    <footer>
+    <footer className={style.footer}>
       <WakeLock />
       <Gps />
       <Errors />

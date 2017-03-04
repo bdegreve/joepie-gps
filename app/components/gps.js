@@ -8,7 +8,7 @@ import Restart from 'components/restart'
 import style from './gps.css'
 
 const View = ({latitude, longitude, accuracy, timestamp}) =>
-  <div className={style.view}>
+  <div>
     lat <Number value={latitude} fixed={4} />,
     lon <Number value={longitude} fixed={4} />,
     err <Number value={accuracy} fixed={1} />m,

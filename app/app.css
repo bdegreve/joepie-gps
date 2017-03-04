@@ -17,3 +17,7 @@
   height: 100%;
   position: absolute !important;
 }
+
+:local .footer {
+  padding: .5rem;
+}
