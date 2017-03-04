@@ -29,7 +29,7 @@ class Ripple extends React.Component {
   tick (time) {
     this.setState((prev, {dur}) => ({
       time,
-      phase: (prev.phase + dt(time, prev.time) / dur) % 1,
+      phase: (prev.phase + (dt(time, prev.time) / dur)) % 1,
       request: requestAnimationFrame(this.tick)
     }))
   }
@@ -57,7 +57,7 @@ const Circle = ({phase, ...rest}) =>
   <circle cx='50' cy='50' r={phase * 40} opacity={op(phase)} fill='none' strokeWidth='6' strokeLinecap='round' {...rest} />
 
 const dt = (time, prevTime) => prevTime !== null ? (time - prevTime) : 0
-const op = phase => 1 - phase * phase
+const op = phase => 1 - (phase * phase)
 
 Ripple.defaultProps = {
   stroke: '#5cffd6',

@@ -64,7 +64,6 @@ export default class extends React.Component {
       this._noSleep = new NoSleep()
       this.setState({method: NO_SLEEP_JS})
       document.addEventListener('click', this.onClick, false)
-      return
     }
   }
 
@@ -74,24 +73,24 @@ export default class extends React.Component {
         if (this._request) {
           this._request.cancel()
         }
-        return
+        break
 
       case NAVIGATOR_REQUEST_WAKE_LOCK:
         this._lock.unlock()
-        return
+        break
 
       case NAVIGATOR_WAKE_LOCK:
         navigator.wakeLock.release('screen')
-        return
+        break
 
       case SCREEN_KEEP_AWAKE:
         screen.keepAwake = false
-        return
+        break
 
       case NO_SLEEP_JS:
         document.removeEventListener('click', this.onClick, false)
         this._noSleep.disable()
-        return
+        break
     }
   }
 

@@ -111,13 +111,13 @@ function geoDistance (a, b) {
   const lon1 = DEG2RAD * a.longitude
   const lat2 = DEG2RAD * b.latitude
   const lon2 = DEG2RAD * b.longitude
-  const h = haversin(lat1 - lat2) + Math.cos(lat1) * Math.cos(lat2) * haversin(lon1 - lon2)
+  const h = haversin(lat1 - lat2) + (Math.cos(lat1) * Math.cos(lat2) * haversin(lon1 - lon2))
   return 2 * R_EARTH * Math.asin(Math.sqrt(h))
 }
 
 // haversin theta = sin^2 (theta / 2) = (1 - cos theta) / 2
 // https://en.wikipedia.org/wiki/Versine#Definitions
-const haversin = theta => 0.5 - 0.5 * Math.cos(theta)
+const haversin = theta => 0.5 * (1 - Math.cos(theta))
 
 const DEG2RAD = 0.01745329251994
 const R_EARTH = 6371000.0
