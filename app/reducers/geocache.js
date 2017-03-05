@@ -3,15 +3,14 @@ import { LOCATION_UPDATE } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
 import { REHYDRATE } from 'redux-persist/constants'
 
-const TOLERANCE = 10
-
 const initialState = {
   waypoint: 0,
   distance: null,
   isFetching: true,
   isFinished: false,
   isFurther: false,
-  threshold: Infinity
+  threshold: Infinity,
+  tolerance: 10
 }
 
 export default (state = initialState, action, intermediate) => {
@@ -39,6 +38,12 @@ export default (state = initialState, action, intermediate) => {
           treshold
         }
 
+      case WAYPOINTS_FETCHED:
+        const { tolerance } = action.data
+        return tolerance
+          ? { ...state, tolerance }
+          : state
+
       default:
         return state
     }
@@ -64,9 +69,9 @@ export default (state = initialState, action, intermediate) => {
       const _waypoints = waypoints.waypoints
       const n = _waypoints.length
 
-      let { waypoint, isFurther, threshold } = state
+      let { waypoint, isFurther, threshold, tolerance } = state
       let distance = geoDistance(location, _waypoints[waypoint])
-      while (distance < TOLERANCE && waypoint < (n - 1)) {
+      while (distance < tolerance && waypoint < (n - 1)) {
         ++waypoint
         distance = geoDistance(location, _waypoints[waypoint])
         isFurther = false
@@ -94,7 +99,7 @@ export default (state = initialState, action, intermediate) => {
         waypoint,
         distance,
         isFetching,
-        isFinished: waypoint === (n - 1) && distance < TOLERANCE,
+        isFinished: waypoint === (n - 1) && distance < tolerance,
         isFurther,
         threshold
       }

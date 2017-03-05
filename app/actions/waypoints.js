@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch'
 
 export const WAYPOINTS_FETCHED = 'WAYPOINTS_FETCHED'
-const waypointsFetched = waypoints => ({
+const waypointsFetched = data => ({
   type: WAYPOINTS_FETCHED,
-  waypoints
+  data
 })
 
 export const WAYPOINTS_ERROR = 'WAYPOINTS_ERROR'
@@ -15,13 +15,13 @@ const waypointError = error => ({
 export default url =>
   dispatch => fetch(url)
     .then(res => res.json())
-    .then(({waypoints}) => {
-      if (!waypoints) {
+    .then(({data}) => {
+      if (!data || !data.waypoints) {
         if (process.env.NODE_ENV !== 'production') {
-          console.warn('No waypoints in data.')
+          console.warn('No waypoints in response.')
         }
-        throw new Error('No waypoints in data.')
+        throw new Error('No waypoints in response.')
       }
-      return dispatch(waypointsFetched(waypoints))
+      return dispatch(waypointsFetched(data))
     })
     .catch(err => dispatch(waypointError(err.message)))

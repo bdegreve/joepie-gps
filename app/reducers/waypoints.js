@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     case WAYPOINTS_FETCHED: {
       return {
         ...state,
-        waypoints: action.waypoints,
+        waypoints: action.data.waypoints,
         isFetching: false,
         error: null
       }

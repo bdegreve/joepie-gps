@@ -1,7 +1,5 @@
 import { LOCATION_UPDATE, LOCATION_ERROR } from 'actions/location'
-
-const REQUIRED_ACCURACY = process.env.NODE_ENV === 'production' ? 30 : 300
-const MAX_AGE = 5000 // milliseconds
+import { WAYPOINTS_FETCHED } from 'actions/waypoints'
 
 const initialState = {
   latitude: null,
@@ -10,14 +8,17 @@ const initialState = {
   timestamp: null,
   age: null,
   isFetching: true,
-  error: null
+  error: null,
+  requiredAccuracy: process.env.NODE_ENV === 'production' ? 30 : 300, // meters
+  maxAge: 5000 // milliseconds
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOCATION_UPDATE:
+    case LOCATION_UPDATE: {
       const { coords, timestamp, age } = action
       const { latitude, longitude, accuracy } = coords
+      const { requiredAccuracy, maxAge } = state
       return {
         ...state,
         latitude,
@@ -25,17 +26,30 @@ export default (state = initialState, action) => {
         accuracy,
         timestamp,
         age,
-        isFetching: accuracy > REQUIRED_ACCURACY || age > MAX_AGE,
-        error: accuracy > REQUIRED_ACCURACY
-          ? `Accuracy not good enough (yet): ${accuracy} > ${REQUIRED_ACCURACY}`
+        isFetching: accuracy > requiredAccuracy || age > maxAge,
+        error: accuracy > requiredAccuracy
+          ? `Accuracy not good enough (yet): ${accuracy} > ${requiredAccuracy}`
           : null
       }
+    }
 
     case LOCATION_ERROR:
       return {
         ...state,
         error: action.error
       }
+
+    case WAYPOINTS_FETCHED: {
+      const {
+        accuracy, // meters
+        maxAge // seconds
+      } = action.data
+      return {
+        ...state,
+        requiredAccuracy: accuracy || state.requiredAccuracy,
+        maxAge: maxAge ? (1000 * maxAge) : state.maxAge // milliseconds
+      }
+    }
 
     default:
       return state

@@ -1,24 +1,29 @@
 {
-  "waypoints": [
-    {
-      "latitude": 51.2014906,
-      "longitude": 3.2655433
-    },
-    {
-      "latitude": 51.200073,
-      "longitude": 3.2611356
-    },
-    {
-      "latitude": 51.198345,
-      "longitude": 3.264406
-    },
-    {
-      "latitude": 51.199083,
-      "longitude": 3.267769
-    },
-    {
-      "latitude": 51.200536,
-      "longitude": 3.266071
-    }
-  ]
+  "data": {
+    "accuracy": 30,
+    "tolerance": 10,
+    "maxAge": 5,
+    "waypoints": [
+      {
+        "latitude": 51.2014906,
+        "longitude": 3.2655433
+      },
+      {
+        "latitude": 51.200073,
+        "longitude": 3.2611356
+      },
+      {
+        "latitude": 51.198345,
+        "longitude": 3.264406
+      },
+      {
+        "latitude": 51.199083,
+        "longitude": 3.267769
+      },
+      {
+        "latitude": 51.200536,
+        "longitude": 3.266071
+      }
+    ]
+  }
 }
