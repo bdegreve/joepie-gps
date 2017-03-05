@@ -22,20 +22,20 @@ export default (state = initialState, action, intermediate) => {
           waypoint: 0,
           isFinished: false,
           isFurther: false,
-          treshold: Infinity
+          threshold: Infinity
         }
 
       case REHYDRATE:
         if (!action.payload.geocache) {
           return state
         }
-        const {waypoint, isFinished, isFurther, treshold} = action.payload.geocache
+        const {waypoint, isFinished, isFurther, threshold} = action.payload.geocache
         return {
           ...state,
           waypoint,
           isFinished,
           isFurther,
-          treshold
+          threshold
         }
 
       case WAYPOINTS_FETCHED:
