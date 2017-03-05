@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import rootReducer from './reducers'
@@ -16,8 +16,11 @@ function getInitialState () {
 
 const initialState = getInitialState()
 
+// http://extension.remotedev.io/
+const _compose = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
 export default createStore(
   rootReducer,
   initialState,
-  applyMiddleware(thunkMiddleware)
+  _compose(applyMiddleware(thunkMiddleware))
 )
