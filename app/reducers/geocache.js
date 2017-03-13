@@ -70,10 +70,10 @@ export default (state = initialState, action, intermediate) => {
       const n = _waypoints.length
 
       let { waypoint, isFurther, threshold, tolerance } = state
-      let distance = geoDistance(location, _waypoints[waypoint])
-      while (distance < tolerance && waypoint < (n - 1)) {
+      let distance = geoDistance(location, _waypoints[waypoint]) - tolerance
+      while (distance <= 0 && waypoint < (n - 1)) {
         ++waypoint
-        distance = geoDistance(location, _waypoints[waypoint])
+        distance = geoDistance(location, _waypoints[waypoint]) - tolerance
         isFurther = false
         threshold = Infinity
       }
@@ -100,7 +100,7 @@ export default (state = initialState, action, intermediate) => {
         waypoint,
         distance,
         isFetching,
-        isFinished: waypoint === (n - 1) && distance < tolerance,
+        isFinished: waypoint === (n - 1) && distance <= 0,
         isFurther,
         threshold
       }

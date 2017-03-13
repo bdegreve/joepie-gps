@@ -58,13 +58,13 @@ class View extends React.Component {
         <div className={styles.grow}>
           <div className={styles.child}>
             <Ripple
-              dur={duration(distance)}
+              period={period(distance)}
               stroke={isFurther ? '#fa5252' : '#51cf66'}
             />
           </div>
         </div>
         <div className={styles.distance}>
-          <Number value={dist} fixed />{unit}
+          <Number value={Math.max(dist, 1)} fixed />{unit}
         </div>
       </div>
     )
@@ -76,6 +76,6 @@ const mapStateToProps = ({geocache, location}) => ({
   accuracy: location.accuracy
 })
 
-const duration = distance => Math.max(1, -4000 * Math.expm1(-distance / 100))
+const period = distance => 450 + 5 * Math.max(0, Math.min(distance, 1000))
 
 export default connect(mapStateToProps)(View)

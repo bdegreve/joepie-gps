@@ -27,9 +27,9 @@ class Ripple extends React.Component {
   }
 
   tick (time) {
-    this.setState((prev, {dur}) => ({
+    this.setState((prev, {period}) => ({
       time,
-      phase: (prev.phase + (dt(time, prev.time) / dur)) % 1,
+      phase: (prev.phase + (dt(time, prev.time) / period)) % 1,
       request: requestAnimationFrame(this.tick)
     }))
   }
@@ -61,7 +61,7 @@ const op = phase => 1 - (phase * phase)
 
 Ripple.defaultProps = {
   stroke: '#5cffd6',
-  dur: 2000
+  period: 2000
 }
 
 export default Ripple
