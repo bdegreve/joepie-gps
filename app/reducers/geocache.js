@@ -78,19 +78,20 @@ export default (state = initialState, action, intermediate) => {
         threshold = Infinity
       }
 
+      const hysteresis = Math.max(1, 0.001 * distance)
       if (isFurther) {
         if (distance < threshold) {
           isFurther = false
-          threshold = distance + location.accuracy
+          threshold = distance + hysteresis
         } else {
-          threshold = Math.max(threshold, distance - location.accuracy)
+          threshold = Math.max(threshold, distance - hysteresis)
         }
       } else {
         if (distance > threshold) {
           isFurther = true
-          threshold = distance - location.accuracy
+          threshold = distance - hysteresis
         } else {
-          threshold = Math.min(threshold, distance + location.accuracy)
+          threshold = Math.min(threshold, distance + hysteresis)
         }
       }
 
