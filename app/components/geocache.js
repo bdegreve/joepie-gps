@@ -46,7 +46,7 @@ class View extends React.Component {
       return <Loading />
     }
 
-    const {dist, unit} = distance > 2000
+    const {dist, unit} = distance >= 10000
       ? {dist: distance / 1000, unit: 'km'}
       : {dist: distance, unit: 'm'}
 
