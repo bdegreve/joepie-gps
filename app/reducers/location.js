@@ -27,9 +27,7 @@ export default (state = initialState, action) => {
         timestamp,
         age,
         isFetching: accuracy > requiredAccuracy || age > maxAge,
-        error: accuracy > requiredAccuracy
-          ? `Accuracy not good enough (yet): ${accuracy} > ${requiredAccuracy}`
-          : null
+        error: null
       }
     }
 
