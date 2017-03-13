@@ -29,13 +29,25 @@ export default dispatch => {
       })
     },
     err => {
+      let msg = err.message
+      switch (err.code) {
+        case err.PERMISSION_DENIED:
+          msg = 'Geolocation denied. Allow this site to access your position, and try again.'
+          break
+        case err.POSITION_UNAVAILABLE:
+          msg = 'Geolocation failed. Your position is unavailable.'
+          break
+        case err.TIMEOUT:
+          msg = 'Timeout. Failed to obtain your position within a reasonable time.'
+          break
+      }
       dispatch({
         type: LOCATION_ERROR,
-        error: `${err.message} (error ${err.code})`
+        error: `${msg} (error ${err.code})`
       })
     }, {
       enableHighAccuracy: true,
-      maximumAge: 1000
+      maximumAge: 5000
     }
   )
 }
