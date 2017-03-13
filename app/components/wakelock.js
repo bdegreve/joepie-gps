@@ -21,7 +21,7 @@ export default class extends React.Component {
       method: '',
       enabled: false
     }
-    this.onClick = this.onClick.bind(this)
+    this.onChangeSleep = this.onChangeSleep.bind(this)
   }
 
   componentDidMount () {
@@ -94,27 +94,34 @@ export default class extends React.Component {
     }
   }
 
-  onClick () {
-    this.setState(({method, enabled}) => {
-      switch (method) {
-        case NO_SLEEP_JS:
-          if (!enabled) {
-            this._noSleep.enable()
-          } else {
-            this._noSleep.disable()
-          }
-          return {
-            enabled: !enabled
-          }
+  onChangeSleep (ev) {
+    const { checked } = ev.target
+    this.setState(({ method, enabled }) => {
+      if (method !== NO_SLEEP_JS) {
+        return
+      }
+      if (checked && !enabled) {
+        this._noSleep.enable()
+      } else if (enabled && !checked) {
+        this._noSleep.disable()
+      }
+      return {
+        enabled: checked
       }
     })
   }
 
   render () {
     const { method, enabled } = this.state
+    if (method !== NO_SLEEP_JS) {
+      return null
+    }
     return (
       <div>
-        {method} {enabled ? 'enabled' : 'disabled'}
+        <label>
+          <input type='checkbox' checked={enabled} onChange={this.onChangeSleep} />
+          Keep screen awake ...
+        </label>
       </div>
     )
   }
