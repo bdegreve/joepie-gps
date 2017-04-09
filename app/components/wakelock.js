@@ -3,6 +3,8 @@
 import React from 'react'
 import NoSleep from 'nosleep'
 
+import Switch from 'app/components/switch'
+
 // hacky support
 // this is still in draft: https://w3c.github.io/wake-lock/
 //
@@ -118,10 +120,9 @@ export default class extends React.Component {
     }
     return (
       <div>
-        <label>
-          <input type='checkbox' checked={enabled} onChange={this.onChangeSleep} />
+        <Switch checked={enabled} onChange={this.onChangeSleep}>
           Keep screen awake ...
-        </label>
+        </Switch>
       </div>
     )
   }
