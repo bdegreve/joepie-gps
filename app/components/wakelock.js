@@ -121,7 +121,7 @@ export default class extends React.Component {
     return (
       <div>
         <Switch checked={enabled} onChange={this.onChangeSleep}>
-          Keep screen awake ...
+          Hou scherm aan ...
         </Switch>
       </div>
     )
