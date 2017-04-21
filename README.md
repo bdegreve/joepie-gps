@@ -1,6 +1,14 @@
 Joepie Reverse Geocache Application
 ===================================
 
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-blue.svg)](http://standardjs.com/)
+
+License
+-------
+
+ISC, see [LICENSE](./LICENSE) file.
+
 Requirements
 ------------
 
