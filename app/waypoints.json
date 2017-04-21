@@ -1,28 +1,64 @@
 {
   "data": {
-    "accuracy": 30,
+    "accuracy": 40,
     "tolerance": 10,
     "maxAge": 5,
     "waypoints": [
       {
-        "latitude": 51.2014906,
-        "longitude": 3.2655433
+        "latitude": 50.93076,
+        "longitude": 5.01412
       },
       {
-        "latitude": 51.200073,
-        "longitude": 3.2611356
+        "latitude": 50.93121,
+        "longitude": 5.01976
       },
       {
-        "latitude": 51.198345,
-        "longitude": 3.264406
+        "latitude": 50.9333,
+        "longitude": 5.02021
       },
       {
-        "latitude": 51.199083,
-        "longitude": 3.267769
+        "latitude": 50.93339,
+        "longitude": 5.02299
       },
       {
-        "latitude": 51.200536,
-        "longitude": 3.266071
+        "latitude": 50.93629,
+        "longitude": 5.02426
+      },
+      {
+        "latitude": 50.93709,
+        "longitude": 5.02548
+      },
+      {
+        "latitude": 50.93837,
+        "longitude": 5.02519
+      },
+      {
+        "latitude": 50.94117,
+        "longitude": 5.03523
+      },
+      {
+        "latitude": 50.93937,
+        "longitude": 5.03621
+      },
+      {
+        "latitude": 50.93996,
+        "longitude": 5.03772
+      },
+      {
+        "latitude": 50.94112,
+        "longitude": 5.03857
+      },
+      {
+        "latitude": 50.94108,
+        "longitude": 5.04505
+      },
+      {
+        "latitude": 50.93938,
+        "longitude": 5.04991
+      },
+      {
+        "latitude": 50.93853,
+        "longitude": 5.05308
       }
     ]
   }
