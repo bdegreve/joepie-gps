@@ -7,6 +7,29 @@
   overflow: hidden;
 }
 
+:local .header {
+  height: 32px;
+  height: 5vmax;
+  padding: .5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+:local .header a {
+  display: block;
+  height: 100%;
+}
+
+:local .header img {
+  height: 100%;
+}
+
+:local .header h1 {
+  margin: 0;
+  line-height: 32px;
+  line-height: 5vmax;
+}
+
 :local .grow {
   flex-grow: 1;
   position: relative;

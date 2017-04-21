@@ -7,6 +7,15 @@ html {
   color: #495057;
 }
 
+a {
+  color: #1c7cd6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 html, body, #root {
   width: 100%;
   height: 100%;
