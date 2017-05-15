@@ -4,6 +4,12 @@ Joepie Reverse Geocache Application
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-blue.svg)](http://standardjs.com/)
 
+Demo
+----
+
+A live demo can be accessed at
+[degraalridders.be/geo](https://www.degraalridders.be/geo/).
+
 License
 -------
 
@@ -12,27 +18,58 @@ ISC, see [LICENSE](./LICENSE) file.
 Requirements
 ------------
 
-You need Node.js (>= 6.0) and NPM (>= 3.0). Two options:
-  - Download Node.js [here](https://nodejs.org/en/download/), it includes NPM.
-  - Alternatively, you can use `apt-get` or `yum` or any of the other 
-    available [package repository](https://nodejs.org/en/download/package-manager/).
-    They also include NPM.
+-   Node.js (v6.x LTS recommended) and NPM (v3.x recommended). Various download
+    options are available at [nodejs.org](https://nodejs.org/en/download/),
+    including instructions using [package managers](https://nodejs.org/en/download/package-manager/).
+    (NPM usually is included in the Node.js install)
+-   Optional: [Yarn](https://yarnpkg.com/en/docs/install) to install the
+    dependencies.
+-   Optional: `make`
 
-Install dependencies
---------------------
-
-`npm install`
-
-Development server
-------------------
-
-`npm start`
-
-Open a browser and go to [http://localhost:8080](http://localhost:8080).
-
-Production build
+How to configure
 ----------------
 
-`npm run build`
+`app/waypoints.json` contains the gps route in JSON format. You can easily
+configure your own route by modifying the `waypoints` array.
 
-The production files will be in the `dist` folder.
+-   `accuracy` (in meters): minimum GPS accurracy required before the GPS
+    locations is considered as valid. i.e. as long as the GPS error is greater
+    than this value, it is assumed you don't have a position fix.
+-   `tolerance` (in meters): tolerance of GPS position in respect to waypoint.
+    i.e. if GPS position gets closer than this value to the current waypoint,
+    it is assumed you have arrived.
+-   `maxAge` (in seconds): maximum age of a GPS position. i.e. if last GPS
+    reading is older than this amount of seconds, it is assumed you have lost
+    signal and your position is no longer valid.
+-   `waypoints`: array of waypoint coordinates for the route. Each waypoint has
+    two values, defining its position in the 
+    [WGS 84](https://en.wikipedia.org/wiki/World_Geodetic_System) coordiate
+    system, a.k.a. regular GPS coordinates.
+    -   `latitude` (in decimal degrees)
+    -   `longitude` (in decimal degrees)
+
+
+How to build
+------------
+
+### Without `make`
+
+1.  Installing dependencies: 
+    -   `npm install`; or if you have Yarn: `yarn install`.
+2.  Running a development server:
+    -   `npm start`
+    -   Open a browser and go to [http://localhost:8080](http://localhost:8080).
+3.  Building a production version:
+    -   `npm run build`
+    -   The production files will be in the `dist` folder. Copy them to your
+        webserver.
+
+### With `make`
+
+1.  Running a development server:
+    -   `make run`
+    -   Open a browser and go to [http://localhost:8080](http://localhost:8080).
+3.  Building a production version:
+    -   `make`
+    -   The production files will be in the `dist` folder. Copy them to your
+        webserver.
