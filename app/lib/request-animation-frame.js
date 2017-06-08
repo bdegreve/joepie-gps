@@ -1,3 +1,5 @@
+/* @flow */
+
 const w = typeof window === 'undefined' ? global : window
 
 let raf =
@@ -15,7 +17,7 @@ let caf =
   w.msCancelAnimationFrame
 
 if (!raf || !caf) {
-  raf = function (callback) {
+  raf = function (callback: number => void) {
     return w.setTimeout(() => callback(Date.now()), 1000 / 30)
   }
   caf = w.clearTimeout

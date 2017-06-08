@@ -1,0 +1,15 @@
+[ignore]
+<PROJECT_ROOT>/dist/.*
+
+[include]
+
+[libs]
+
+[options]
+module.name_mapper='^actions/\(.*\)$' -> '<PROJECT_ROOT>/app/actions/\1'
+module.name_mapper='^components/\(.*\)$' -> '<PROJECT_ROOT>/app/components/\1'
+module.name_mapper='^lib/\(.*\)$' -> '<PROJECT_ROOT>/app/lib/\1'
+module.name_mapper='^reducers/\(.*\)$' -> '<PROJECT_ROOT>/app/reducers/\1'
+module.name_mapper.extension='css' -> '<PROJECT_ROOT>/misc/css-module.js.flow'
+module.name_mapper.extension='png' -> '<PROJECT_ROOT>/misc/webpack-asset.js.flow'
+module.name_mapper.extension='svg' -> '<PROJECT_ROOT>/misc/webpack-asset.js.flow'

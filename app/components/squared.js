@@ -1,14 +1,30 @@
+/* @flow */
+/* global Element */
+
 import React from 'react'
+import type { Children } from 'react'
 
 import styles from './squared.css'
 
-export default class extends React.Component {
+type Props = {
+  children?: Children
+}
+
+type State = {
+  size: number
+}
+
+export default class extends React.Component<void, Props, State> {
+  state: State
+  onResize: void => void
+  _container: Element
+
   constructor () {
     super()
     this.state = {
       size: 0
     }
-    this.onResize = this.onResize.bind(this)
+    this.onResize = this._onResize.bind(this)
   }
 
   componentDidMount () {
@@ -20,7 +36,7 @@ export default class extends React.Component {
     window.removeEventListener('resize', this.onResize)
   }
 
-  onResize () {
+  _onResize () {
     this.calcSize()
   }
 

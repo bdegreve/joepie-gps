@@ -1,12 +1,25 @@
+/* @flow */
+
 import { WAYPOINTS_FETCHED, WAYPOINTS_ERROR } from 'actions/waypoints'
 
-const initialState = {
-  waypoints: null,
+export type Waypoint = {
+  +latitude: number,
+  +longitude: number
+}
+
+export type State = {
+  +waypoints: $ReadOnlyArray<Waypoint>,
+  +isFetching: boolean,
+  +error: string | null
+}
+
+const initialState: State = {
+  waypoints: [],
   isFetching: true,
   error: null
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action: $FlowFixMe): State => {
   switch (action.type) {
     case WAYPOINTS_FETCHED: {
       return {

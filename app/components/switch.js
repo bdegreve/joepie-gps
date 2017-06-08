@@ -1,8 +1,17 @@
+/* @flow */
+
 import React from 'react'
+import type { Children } from 'react'
 
 import styles from './switch.css'
 
-export default ({ checked, onChange, children }) => (
+export type Props = {
+  checked: any,
+  onChange: $FlowFixMe,
+  children?: Children
+}
+
+export default ({ checked, onChange, children }: Props) => (
   <label className={styles.label}>
     <input
       type='checkbox'

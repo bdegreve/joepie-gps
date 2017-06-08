@@ -8,7 +8,9 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "test": "standard",
+    "test": "npm run test:lint && npm run test:type",
+    "test:lint": "standard",
+    "test:type": "flow check",
     "build": "cross-env NODE_ENV=production webpack --progress --colors",
     "dev": "webpack-dev-server",
     "clean": "rimraf dist/*"
@@ -17,7 +19,11 @@
   "license": "ISC",
   "private": true,
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "globals": [
+      "$FlowFixMe",
+      "$ReadOnlyArray"
+    ]
   },
   "dependencies": {
     "autoprefixer": "^7.1.1",
@@ -35,6 +41,7 @@
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
+    "flow-bin": "^0.47.0",
     "isomorphic-fetch": "2.2.1",
     "normalize.css": "^7.0.0",
     "nosleep": "github:bdegreve/NoSleep.js",

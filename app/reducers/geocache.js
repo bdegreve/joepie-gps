@@ -1,11 +1,31 @@
+/* @flow */
+
 import { GEOCACHE_RESTART } from 'actions/geocache'
 import { LOCATION_UPDATE } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
 import { REHYDRATE } from 'redux-persist/constants'
 
-const initialState = {
+import type { State as LocationState } from './location'
+import type { State as WaypointsState, Waypoint } from './waypoints'
+
+export type State = {
+  +waypoint: number,
+  +distance: number,
+  +isFetching: boolean,
+  +isFinished: boolean,
+  +isFurther: boolean,
+  +threshold: number,
+  +tolerance: number
+}
+
+export type Intermediate = {
+  +location: LocationState,
+  +waypoints: WaypointsState
+}
+
+const initialState: State = {
   waypoint: 0,
-  distance: null,
+  distance: Infinity,
   isFetching: true,
   isFinished: false,
   isFurther: false,
@@ -13,7 +33,11 @@ const initialState = {
   tolerance: 10
 }
 
-export default (state = initialState, action, intermediate) => {
+export default (
+  state: State = initialState,
+  action: $FlowFixMe,
+  intermediate?: Intermediate
+): State => {
   if (!intermediate) {
     switch (action.type) {
       case GEOCACHE_RESTART:
@@ -115,7 +139,7 @@ export default (state = initialState, action, intermediate) => {
 
 // returns the great-circle distance between two points (degrees) on a sphere
 // https://en.wikipedia.org/wiki/Great-circle_distance#Computational_formulas
-function geoDistance (a, b) {
+function geoDistance (a: Waypoint, b: Waypoint): number {
   const lat1 = DEG2RAD * a.latitude
   const lon1 = DEG2RAD * a.longitude
   const lat2 = DEG2RAD * b.latitude
@@ -128,7 +152,7 @@ function geoDistance (a, b) {
 
 // haversin theta = sin^2 (theta / 2) = (1 - cos theta) / 2
 // https://en.wikipedia.org/wiki/Versine#Definitions
-const haversin = theta => 0.5 * (1 - Math.cos(theta))
+const haversin = (theta: number) => 0.5 * (1 - Math.cos(theta))
 
 const DEG2RAD = 0.01745329251994
 const R_EARTH = 6371000.0

@@ -1,7 +1,9 @@
+/* @flow */
+
 import fetch from 'isomorphic-fetch'
 
 export const WAYPOINTS_FETCHED = 'WAYPOINTS_FETCHED'
-const waypointsFetched = data => ({
+const waypointsFetched = (data: any) => ({
   type: WAYPOINTS_FETCHED,
   data
 })
@@ -12,16 +14,18 @@ const waypointError = error => ({
   error
 })
 
-export default url => dispatch =>
-  fetch(url)
-    .then(res => res.json())
-    .then(({ data }) => {
-      if (!data || !data.waypoints) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.warn('No waypoints in response.')
+export default function (url: string) {
+  return (dispatch: $FlowFixMe) =>
+    fetch(url)
+      .then(res => res.json())
+      .then(({ data }) => {
+        if (!data || !data.waypoints) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn('No waypoints in response.')
+          }
+          throw new Error('No waypoints in response.')
         }
-        throw new Error('No waypoints in response.')
-      }
-      return dispatch(waypointsFetched(data))
-    })
-    .catch(err => dispatch(waypointError(err.message)))
+        return dispatch(waypointsFetched(data))
+      })
+      .catch(err => dispatch(waypointError(err.message)))
+}

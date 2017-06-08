@@ -1,3 +1,5 @@
+/* @flow */
+
 import React from 'react'
 
 import {
@@ -7,7 +9,22 @@ import {
 
 import styles from './ripple.css'
 
-class Ripple extends React.Component {
+export type Props = {
+  stroke: string,
+  period: number
+}
+
+type State = {
+  phase: number,
+  time: number | null,
+  request: number | null
+}
+
+class Ripple extends React.Component<Props, Props, State> {
+  static defaultProps: Props
+  state: State
+  tick: number => void
+
   constructor () {
     super()
 
@@ -17,7 +34,7 @@ class Ripple extends React.Component {
       request: null
     }
 
-    this.tick = this.tick.bind(this)
+    this.tick = this._tick.bind(this)
   }
 
   componentDidMount () {
@@ -30,7 +47,7 @@ class Ripple extends React.Component {
     cancelAnimationFrame(this.state.request)
   }
 
-  tick (time) {
+  _tick (time: number) {
     this.setState((prev, { period }) => ({
       time,
       phase: (prev.phase + dt(time, prev.time) / period) % 1,
@@ -57,6 +74,11 @@ class Ripple extends React.Component {
   }
 }
 
+Ripple.defaultProps = {
+  stroke: '#5cffd6',
+  period: 2000
+}
+
 const Circle = ({ phase, ...rest }) => (
   <circle
     cx='50'
@@ -72,10 +94,5 @@ const Circle = ({ phase, ...rest }) => (
 
 const dt = (time, prevTime) => (prevTime !== null ? time - prevTime : 0)
 const op = phase => 1 - phase * phase
-
-Ripple.defaultProps = {
-  stroke: '#5cffd6',
-  period: 2000
-}
 
 export default Ripple

@@ -1,19 +1,33 @@
+/* @flow */
+
 import { LOCATION_UPDATE, LOCATION_ERROR } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
 
-const initialState = {
-  latitude: null,
-  longitude: null,
-  accuracy: null,
-  timestamp: null,
-  age: null,
+export type State = {
+  +latitude: number,
+  +longitude: number,
+  +accuracy: number,
+  +timestamp: number,
+  +age: number,
+  +isFetching: boolean,
+  +error: string | null,
+  +requiredAccuracy: number,
+  +maxAge: number
+}
+
+const initialState: State = {
+  latitude: 0,
+  longitude: 0,
+  accuracy: Infinity,
+  timestamp: 0,
+  age: Infinity,
   isFetching: true,
   error: null,
   requiredAccuracy: process.env.NODE_ENV === 'production' ? 30 : 300, // meters
   maxAge: 5000 // milliseconds
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action: $FlowFixMe): State => {
   switch (action.type) {
     case LOCATION_UPDATE: {
       const { coords, timestamp, age } = action

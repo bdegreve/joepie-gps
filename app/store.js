@@ -1,9 +1,12 @@
+/* @flow */
+
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import rootReducer from './reducers'
+import type { State } from './reducers'
 
-function getInitialState () {
+function getInitialState (): ?State {
   if (typeof document === 'undefined') {
     return undefined
   }

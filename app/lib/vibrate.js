@@ -1,4 +1,6 @@
-export default pattern => {
+/* @flow */
+
+export default (pattern: number | number[]): boolean => {
   if (typeof navigator === 'undefined') {
     return false
   }
@@ -6,6 +8,7 @@ export default pattern => {
     navigator.vibrate ||
     navigator.webkitVibrate ||
     navigator.mozVibrate ||
+    // $FlowFixMe
     navigator.msVibrate
   if (!_vibrate) {
     return false

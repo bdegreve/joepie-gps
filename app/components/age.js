@@ -1,6 +1,19 @@
+/* @flow */
+
 import React from 'react'
 
-export default class extends React.Component {
+export type Props = {
+  +timestamp: number
+}
+
+type State = {
+  age: number
+}
+
+export default class extends React.Component<void, Props, State> {
+  state: State
+  _interval: ?number
+
   constructor () {
     super()
     this.state = {
@@ -10,13 +23,13 @@ export default class extends React.Component {
 
   componentDidMount () {
     if (!this._interval) {
-      this._interval = setInterval(() => this.updateAge(), 200)
+      this._interval = window.setInterval(() => this.updateAge(), 200)
     }
   }
 
   componentWillUnmount () {
     if (this._interval) {
-      clearInterval(this._interval)
+      window.clearInterval(this._interval)
       this._interval = null
     }
   }
