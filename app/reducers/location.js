@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         requiredAccuracy: accuracy || state.requiredAccuracy,
-        maxAge: maxAge ? (1000 * maxAge) : state.maxAge // milliseconds
+        maxAge: maxAge ? 1000 * maxAge : state.maxAge // milliseconds
       }
     }
 

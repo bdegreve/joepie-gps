@@ -29,7 +29,12 @@ export default (state = initialState, action, intermediate) => {
         if (!action.payload.geocache) {
           return state
         }
-        const {waypoint, isFinished, isFurther, threshold} = action.payload.geocache
+        const {
+          waypoint,
+          isFinished,
+          isFurther,
+          threshold
+        } = action.payload.geocache
         return {
           ...state,
           waypoint,
@@ -40,9 +45,7 @@ export default (state = initialState, action, intermediate) => {
 
       case WAYPOINTS_FETCHED:
         const { tolerance } = action.data
-        return tolerance
-          ? { ...state, tolerance }
-          : state
+        return tolerance ? { ...state, tolerance } : state
 
       default:
         return state
@@ -71,7 +74,7 @@ export default (state = initialState, action, intermediate) => {
 
       let { waypoint, isFurther, threshold, tolerance } = state
       let distance = geoDistance(location, _waypoints[waypoint]) - tolerance
-      while (distance <= 0 && waypoint < (n - 1)) {
+      while (distance <= 0 && waypoint < n - 1) {
         ++waypoint
         distance = geoDistance(location, _waypoints[waypoint]) - tolerance
         isFurther = false
@@ -100,7 +103,7 @@ export default (state = initialState, action, intermediate) => {
         waypoint,
         distance,
         isFetching,
-        isFinished: waypoint === (n - 1) && distance <= 0,
+        isFinished: waypoint === n - 1 && distance <= 0,
         isFurther,
         threshold
       }
@@ -117,7 +120,9 @@ function geoDistance (a, b) {
   const lon1 = DEG2RAD * a.longitude
   const lat2 = DEG2RAD * b.latitude
   const lon2 = DEG2RAD * b.longitude
-  const h = haversin(lat1 - lat2) + (Math.cos(lat1) * Math.cos(lat2) * haversin(lon1 - lon2))
+  const h =
+    haversin(lat1 - lat2) +
+    Math.cos(lat1) * Math.cos(lat2) * haversin(lon1 - lon2)
   return 2 * R_EARTH * Math.asin(Math.sqrt(h))
 }
 

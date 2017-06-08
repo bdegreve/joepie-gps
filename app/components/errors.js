@@ -3,20 +3,18 @@ import { connect } from 'react-redux'
 
 import style from './errors.css'
 
-const View = ({errors}) => {
+const View = ({ errors }) => {
   if (!errors || !errors.length) {
     return null
   }
   return (
     <div className={style.view}>
-      {errors.map((error, index) =>
-        <p key={index}>{error}</p>
-      )}
+      {errors.map((error, index) => <p key={index}>{error}</p>)}
     </div>
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const errors = Object.keys(state)
     .map(key => state[key] && state[key].error)
     .filter(error => error && error.length)

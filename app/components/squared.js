@@ -45,7 +45,12 @@ export default class extends React.Component {
       height: `${size}px`
     }
     return (
-      <div className={styles.container} ref={c => { this._container = c }}>
+      <div
+        className={styles.container}
+        ref={c => {
+          this._container = c
+        }}
+      >
         <div className={styles.square} style={squareStyle}>
           {this.props.children}
         </div>

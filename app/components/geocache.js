@@ -30,13 +30,7 @@ class View extends React.Component {
   }
 
   render () {
-    const {
-      waypoint,
-      distance,
-      isFetching,
-      isFinished,
-      isFurther
-    } = this.props
+    const { waypoint, distance, isFetching, isFinished, isFurther } = this.props
 
     if (isFinished) {
       return <img src={require('img/finish.svg')} className={styles.finished} />
@@ -46,9 +40,9 @@ class View extends React.Component {
       return <Loading />
     }
 
-    const {dist, unit} = distance >= 10000
-      ? {dist: distance / 1000, unit: 'km'}
-      : {dist: distance, unit: 'm'}
+    const { dist, unit } = distance >= 10000
+      ? { dist: distance / 1000, unit: 'km' }
+      : { dist: distance, unit: 'm' }
 
     return (
       <div className={styles.container}>
@@ -71,7 +65,7 @@ class View extends React.Component {
   }
 }
 
-const mapStateToProps = ({geocache, location}) => ({
+const mapStateToProps = ({ geocache, location }) => ({
   ...geocache,
   accuracy: location.accuracy
 })

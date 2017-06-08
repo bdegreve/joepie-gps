@@ -18,9 +18,7 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
-  new CopyWebpackPlugin([
-    { from: resolve(__dirname, 'app/waypoints.json') }
-  ]),
+  new CopyWebpackPlugin([{ from: resolve(__dirname, 'app/waypoints.json') }]),
   new ExtractTextPlugin(`[name]${CHUNKHASH}.css`),
   new StaticSiteGeneratorPlugin({
     entry: 'main',
@@ -66,10 +64,7 @@ const cssLoaders = [
     options: {
       plugins: () => [
         autoprefixer({
-          browsers: [
-            'last 3 versions',
-            '> 1%'
-          ]
+          browsers: ['last 3 versions', '> 1%']
         })
       ]
     }

@@ -1,6 +1,10 @@
 import React from 'react'
 
-import { requestAnimationFrame, cancelAnimationFrame } from 'lib/request-animation-frame'
+import {
+  requestAnimationFrame,
+  cancelAnimationFrame
+} from 'lib/request-animation-frame'
+
 import styles from './ripple.css'
 
 class Ripple extends React.Component {
@@ -27,9 +31,9 @@ class Ripple extends React.Component {
   }
 
   tick (time) {
-    this.setState((prev, {period}) => ({
+    this.setState((prev, { period }) => ({
       time,
-      phase: (prev.phase + (dt(time, prev.time) / period)) % 1,
+      phase: (prev.phase + dt(time, prev.time) / period) % 1,
       request: requestAnimationFrame(this.tick)
     }))
   }
@@ -53,11 +57,21 @@ class Ripple extends React.Component {
   }
 }
 
-const Circle = ({phase, ...rest}) =>
-  <circle cx='50' cy='50' r={phase * 40} opacity={op(phase)} fill='none' strokeWidth='6' strokeLinecap='round' {...rest} />
+const Circle = ({ phase, ...rest }) => (
+  <circle
+    cx='50'
+    cy='50'
+    r={phase * 40}
+    opacity={op(phase)}
+    fill='none'
+    strokeWidth='6'
+    strokeLinecap='round'
+    {...rest}
+  />
+)
 
-const dt = (time, prevTime) => prevTime !== null ? (time - prevTime) : 0
-const op = phase => 1 - (phase * phase)
+const dt = (time, prevTime) => (prevTime !== null ? time - prevTime : 0)
+const op = phase => 1 - phase * phase
 
 Ripple.defaultProps = {
   stroke: '#5cffd6',

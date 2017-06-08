@@ -11,10 +11,11 @@ import store from './store'
 import isomorphic from './isomorphic'
 import './main.css'
 
-const Root = () =>
+const Root = () => (
   <Provider store={store}>
     <App />
   </Provider>
+)
 
 if (typeof document !== 'undefined') {
   watchLocation(action => store.dispatch(action))

@@ -25,7 +25,7 @@ export default class extends React.Component {
     const { timestamp } = this.props
     const age = Math.round((Date.now() - timestamp) / 1000)
     if (age !== this.state.age) {
-      this.setState({age})
+      this.setState({ age })
     }
   }
 

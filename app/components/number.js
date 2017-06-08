@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({value, fixed}) => {
+export default ({ value, fixed }) => {
   if (value === null || value === undefined) {
     return null
   }

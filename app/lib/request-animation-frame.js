@@ -1,6 +1,7 @@
 const w = typeof window === 'undefined' ? global : window
 
-let raf = w.requestAnimationFrame ||
+let raf =
+  w.requestAnimationFrame ||
   w.webkitRequestAnimationFrame ||
   w.mozRequestAnimationFrame ||
   w.oRequestAnimationFrame ||

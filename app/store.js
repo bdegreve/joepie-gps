@@ -17,7 +17,10 @@ function getInitialState () {
 const initialState = getInitialState()
 
 // http://extension.remotedev.io/
-const _compose = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+const _compose =
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose
 
 export default createStore(
   rootReducer,
