@@ -1,7 +1,15 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import rootReducer from './reducers'
+
+const persistConfig = {
+  key: 'joepie-gps',
+  storage,
+  whitelist: ['geocache']
+}
 
 function getInitialState () {
   if (typeof document === 'undefined') {
@@ -20,7 +28,7 @@ const initialState = getInitialState()
 const _compose = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
 export default createStore(
-  rootReducer,
+  persistReducer(persistConfig, rootReducer),
   initialState,
   _compose(applyMiddleware(thunkMiddleware))
 )

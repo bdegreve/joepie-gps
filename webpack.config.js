@@ -31,7 +31,10 @@ const plugins = [
       self: {
         location: {},
         postMessage: () => {},
-        setImmediate: global.setImmediate
+        setImmediate: global.setImmediate,
+        addEventListener: (...args) => {
+          console.log(`--- addEventListener: ${args}`)
+        }
       }
     }
   })

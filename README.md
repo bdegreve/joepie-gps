@@ -18,12 +18,10 @@ ISC, see [LICENSE](./LICENSE) file.
 Requirements
 ------------
 
--   Node.js (v6.x LTS recommended) and NPM (v3.x recommended). Various download
+-   Node.js (v8.x LTS recommended) and NPM (v5.x recommended). Various download
     options are available at [nodejs.org](https://nodejs.org/en/download/),
     including instructions using [package managers](https://nodejs.org/en/download/package-manager/).
     (NPM usually is included in the Node.js install)
--   Optional: [Yarn](https://yarnpkg.com/en/docs/install) to install the
-    dependencies.
 -   Optional: `make`
 
 How to configure
@@ -52,18 +50,6 @@ configure your own route by modifying the `waypoints` array.
 How to build
 ------------
 
-### Without `make`
-
-1.  Installing dependencies: 
-    -   `npm install`; or if you have Yarn: `yarn install`.
-2.  Running a development server:
-    -   `npm start`
-    -   Open a browser and go to [http://localhost:8080](http://localhost:8080).
-3.  Building a production version:
-    -   `npm run build`
-    -   The production files will be in the `dist` folder. Copy them to your
-        webserver.
-
 ### With `make`
 
 1.  Running a development server:
@@ -73,3 +59,16 @@ How to build
     -   `make`
     -   The production files will be in the `dist` folder. Copy them to your
         webserver.
+
+### Without `make`
+
+1.  Installing dependencies: 
+    -   `npm install`
+2.  Running a development server:
+    -   `npm start`
+    -   Open a browser and go to [http://localhost:8080](http://localhost:8080).
+3.  Building a production version:
+    -   `npm run build`
+    -   The production files will be in the `dist` folder. Copy them to your
+        webserver.
+

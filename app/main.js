@@ -19,10 +19,8 @@ const Root = () =>
 if (typeof document !== 'undefined') {
   watchLocation(action => store.dispatch(action))
   store.dispatch(fetchWaypoints('waypoints.json'))
-  persistStore(store, {
-    whitelist: ['geocache']
-  })
-  ReactDOM.render(<Root />, document.getElementById('root'))
+  persistStore(store)
+  ReactDOM.hydrate(<Root />, document.getElementById('root'))
 }
 
 export default isomorphic(Root, {
