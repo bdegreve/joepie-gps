@@ -21,8 +21,10 @@ dist: node_modules webpack.config.js .babelrc $(SOURCES)
 run: node_modules
 	npm start
 
-check: node_modules
+test: node_modules
 	npm test
+
+check: test
 
 clean:
 	${RMRF} dist
@@ -30,4 +32,4 @@ clean:
 distclean: clean
 	${RMRF} node_modules
 
-.PHONY: all run check clean distclean
+.PHONY: all run test check clean distclean
