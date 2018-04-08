@@ -1,6 +1,6 @@
 {
   "data": {
-    "accuracy": 40,
+    "accuracy": 4000,
     "tolerance": 10,
     "maxAge": 5,
     "waypoints": [

@@ -2,22 +2,22 @@
 /* global Element */
 
 import React from 'react'
-import type { Children } from 'react'
+import type { Node } from 'react'
 
 import styles from './squared.css'
 
-type Props = {
-  children?: Children
+export type Props = {
+  children?: Node
 }
 
 type State = {
   size: number
 }
 
-export default class extends React.Component<void, Props, State> {
+export default class extends React.Component<Props, State> {
   state: State
   onResize: void => void
-  _container: Element
+  _container: ?Element
 
   constructor () {
     super()

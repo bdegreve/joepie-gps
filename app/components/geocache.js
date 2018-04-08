@@ -7,10 +7,15 @@ import Loading from 'components/loading'
 import Number from 'components/number'
 import Ripple from 'components/ripple'
 import vibrate from 'lib/vibrate'
+import type { State as GeocacheState } from 'reducers/geocache'
 
 import styles from './geocache.css'
 
-class View extends React.Component {
+export type Props = GeocacheState & {
+  +accuracy: number
+}
+
+class View extends React.Component<Props> {
   componentDidMount () {
     vibrate(300)
   }

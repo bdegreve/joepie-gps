@@ -10,7 +10,7 @@ type State = {
   age: number
 }
 
-export default class extends React.Component<void, Props, State> {
+export default class extends React.Component<Props, State> {
   state: State
   _interval: ?number
 

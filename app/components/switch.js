@@ -1,14 +1,14 @@
 /* @flow */
 
 import React from 'react'
-import type { Children } from 'react'
+import type { Node } from 'react'
 
 import styles from './switch.css'
 
 export type Props = {
   checked: any,
   onChange: $FlowFixMe,
-  children?: Children
+  children?: Node
 }
 
 export default ({ checked, onChange, children }: Props) => (

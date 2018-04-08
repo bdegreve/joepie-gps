@@ -10,8 +10,8 @@ import {
 import styles from './ripple.css'
 
 export type Props = {
-  stroke: string,
-  period: number
+  +stroke: string,
+  +period: number
 }
 
 type State = {
@@ -20,7 +20,7 @@ type State = {
   request: number | null
 }
 
-class Ripple extends React.Component<Props, Props, State> {
+class Ripple extends React.Component<Props, State> {
   static defaultProps: Props
   state: State
   tick: number => void

@@ -25,7 +25,10 @@ if (typeof document !== 'undefined') {
   persistStore(store, {
     whitelist: ['geocache']
   })
-  ReactDOM.render(<Root />, document.getElementById('root'))
+  const root = document.getElementById('root')
+  if (root) {
+    ReactDOM.render(<Root />, root)
+  }
 }
 
 export default isomorphic(Root, {
