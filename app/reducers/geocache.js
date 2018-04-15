@@ -3,7 +3,7 @@
 import { GEOCACHE_RESTART } from 'actions/geocache'
 import { LOCATION_UPDATE } from 'actions/location'
 import { WAYPOINTS_FETCHED } from 'actions/waypoints'
-import { REHYDRATE } from 'redux-persist/constants'
+import { REHYDRATE } from 'redux-persist'
 
 import type { State as LocationState } from './location'
 import type { State as WaypointsState, Waypoint } from './waypoints'
@@ -50,7 +50,7 @@ export default (
         }
 
       case REHYDRATE:
-        if (!action.payload.geocache) {
+        if (!action.payload || !action.payload.geocache) {
           return state
         }
         const {

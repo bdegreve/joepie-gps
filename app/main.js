@@ -4,7 +4,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 
+import Loading from 'components/loading'
 import watchLocation from 'actions/location'
 import fetchWaypoints from 'actions/waypoints'
 
@@ -13,21 +15,21 @@ import store from './store'
 import isomorphic from './isomorphic'
 import './main.css'
 
-const Root = () => (
+const Root = ({ persistor }) => (
   <Provider store={store}>
-    <App />
+    <PersistGate loader={Loading} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 )
 
 if (typeof document !== 'undefined') {
   watchLocation(action => store.dispatch(action))
   store.dispatch(fetchWaypoints('waypoints.json'))
-  persistStore(store, {
-    whitelist: ['geocache']
-  })
+  const persistor = persistStore(store)
   const root = document.getElementById('root')
   if (root) {
-    ReactDOM.render(<Root />, root)
+    ReactDOM.render(<Root persistor={persistor} />, root)
   }
 }
 
