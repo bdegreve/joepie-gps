@@ -29,7 +29,7 @@ if (typeof document !== 'undefined') {
   const persistor = persistStore(store)
   const root = document.getElementById('root')
   if (root) {
-    ReactDOM.render(<Root persistor={persistor} />, root)
+    ReactDOM.hydrate(<Root persistor={persistor} />, root)
   }
 }
 
