@@ -1,12 +1,12 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
       "modules": false
     }],
-    "react"
+    "@babel/preset-react",
+    "@babel/preset-flow"
   ],
   "plugins": [
-    "transform-runtime",
-    "transform-object-rest-spread"
+    "@babel/plugin-transform-runtime"
   ]
 }
