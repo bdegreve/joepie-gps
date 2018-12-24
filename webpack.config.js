@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 
@@ -19,34 +19,29 @@ const plugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
   new CopyWebpackPlugin([{ from: resolve(__dirname, 'app/waypoints.json') }]),
-  new ExtractTextPlugin(`[name]${CHUNKHASH}.css`),
+  new MiniCssExtractPlugin({
+    filename: `[name]${CHUNKHASH}.css`,
+    chunkFilename: `[id]${CHUNKHASH}.css`
+  }),
   new StaticSiteGeneratorPlugin({
     entry: 'main',
     paths: ['/'],
     globals: {
       // shimming 'window' as self, to make webpack-dev-server/client happy.
-      // also add setImmediate to keep setImmediate.js at bay ...
       self: {
         location: {},
         postMessage: () => {},
-        setImmediate: global.setImmediate,
         addEventListener: () => {}
       }
     }
   })
 ]
-if (!DEBUG) {
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false // too many warnings are worse than none.
-      }
-    })
-  )
-}
 
 const cssLoaders = [
+  // always using MiniCssExtractPlugin.loader even in debug mode, because
+  // style-loader in combination with static-site-generator-webpack-plugin
+  // gives a "window is not defined" error.
+  MiniCssExtractPlugin.loader,
   {
     loader: 'css-loader',
     options: {
@@ -55,7 +50,7 @@ const cssLoaders = [
       // ?importLoaders=1 seems not required for now.
       // https://css-tricks.com/css-modules-part-3-react/
       // https://github.com/css-modules/css-modules
-      modules: false,
+      modules: 'global',
       localIdentName: '[local]_[hash:base64:5]'
     }
   },
@@ -72,6 +67,7 @@ const cssLoaders = [
 ]
 
 module.exports = {
+  mode: DEBUG ? 'development' : 'production',
   context: __dirname,
   entry: {
     main: [
@@ -85,7 +81,11 @@ module.exports = {
     filename: `[name]${CHUNKHASH}.js`,
     chunkFilename: `[name]${CHUNKHASH}-chunk.js`,
     libraryTarget: 'umd',
-    pathinfo: !!DEBUG
+    pathinfo: !!DEBUG,
+    // errr, a "temp" hack for a "window is not defined" error we get in
+    // static-site-generator-webpack-plugin with webpack 4
+    // https://github.com/markdalgleish/static-site-generator-webpack-plugin/issues/130
+    globalObject: `typeof self !== 'undefined' ? self : this`
   },
   devtool: DEBUG ? 'cheap-module-eval-source-map' : 'source-map',
   module: {
@@ -103,10 +103,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: cssLoaders
-        })
+        use: cssLoaders
       },
       {
         test: /\.(svg|png|jpe?g)$/,
