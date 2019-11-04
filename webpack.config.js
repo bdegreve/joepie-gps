@@ -85,7 +85,7 @@ module.exports = {
     // errr, a "temp" hack for a "window is not defined" error we get in
     // static-site-generator-webpack-plugin with webpack 4
     // https://github.com/markdalgleish/static-site-generator-webpack-plugin/issues/130
-    globalObject: `typeof self !== 'undefined' ? self : this`
+    globalObject: "typeof self !== 'undefined' ? self : this"
   },
   devtool: DEBUG ? 'cheap-module-eval-source-map' : 'source-map',
   module: {

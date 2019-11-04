@@ -40,7 +40,7 @@ export default (
 ): State => {
   if (!intermediate) {
     switch (action.type) {
-      case GEOCACHE_RESTART:
+      case GEOCACHE_RESTART: {
         return {
           ...state,
           waypoint: 0,
@@ -48,8 +48,8 @@ export default (
           isFurther: false,
           threshold: Infinity
         }
-
-      case REHYDRATE:
+      }
+      case REHYDRATE: {
         if (!action.payload || !action.payload.geocache) {
           return state
         }
@@ -66,11 +66,11 @@ export default (
           isFurther,
           threshold
         }
-
-      case WAYPOINTS_FETCHED:
+      }
+      case WAYPOINTS_FETCHED: {
         const { tolerance } = action.data
         return tolerance ? { ...state, tolerance } : state
-
+      }
       default:
         return state
     }
@@ -78,7 +78,7 @@ export default (
 
   switch (action.type) {
     case LOCATION_UPDATE:
-    case WAYPOINTS_FETCHED:
+    case WAYPOINTS_FETCHED: {
       const { location, waypoints } = intermediate
 
       if (state.isFinished) {
@@ -131,7 +131,7 @@ export default (
         isFurther,
         threshold
       }
-
+    }
     default:
       return state
   }

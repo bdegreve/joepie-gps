@@ -101,7 +101,7 @@ export default class extends React.Component {
     }
   }
 
-  onChangeSleep (ev) {
+  handleChangeSleep (ev) {
     const { checked } = ev.target
     this.setState(({ method, enabled }) => {
       if (method !== NO_SLEEP_JS) {
@@ -125,7 +125,7 @@ export default class extends React.Component {
     }
     return (
       <div>
-        <Switch checked={enabled} onChange={this.onChangeSleep}>
+        <Switch checked={enabled} onChange={this.handleChangeSleep}>
           Hou scherm aan ...
         </Switch>
       </div>
