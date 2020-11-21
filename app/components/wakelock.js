@@ -23,7 +23,7 @@ export default class extends React.Component {
       method: '',
       enabled: false
     }
-    this.onChangeSleep = this.onChangeSleep.bind(this)
+    this.handleChangeSleep = this.handleChangeSleep.bind(this)
   }
 
   componentDidMount () {
